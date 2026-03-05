@@ -35,3 +35,12 @@ export const palette = {
   },
 } as const;
 
+export type Colors = { [K in keyof typeof palette.light]: string };
+
+/** One family, three weights. Geist's steady-width digits make amounts line up cleanly. */
+export const font = {
+  regular: 'Geist_400Regular',
+  medium: 'Geist_500Medium',
+  semibold: 'Geist_600SemiBold',
+} as const;
+
