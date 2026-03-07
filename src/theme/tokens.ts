@@ -44,3 +44,10 @@ export const font = {
   semibold: 'Geist_600SemiBold',
 } as const;
 
+/** Shared money styles so every amount and currency code looks the same everywhere. */
+export const moneyType = {
+  hero: { fontFamily: font.semibold, letterSpacing: -3, fontVariant: ['tabular-nums'] as 'tabular-nums'[] },
+  code: { fontFamily: font.medium, fontSize: 15, letterSpacing: 1.2 },
+  heading: { fontFamily: font.semibold, fontSize: 28, lineHeight: 34, letterSpacing: -0.8 },
+} as const;
+
