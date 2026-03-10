@@ -51,3 +51,10 @@ export const moneyType = {
   heading: { fontFamily: font.semibold, fontSize: 28, lineHeight: 34, letterSpacing: -0.8 },
 } as const;
 
+export const space = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32, xxxl: 48 } as const;
+export const radius = { sm: 12, md: 16, lg: 24, pill: 999 } as const;
+
+// Critically damped: quick and settled, never bouncing past the target.
+export const spring = { damping: 32, stiffness: 320, mass: 1, overshootClamping: true } as const;
+export const softSpring = { damping: 34, stiffness: 240, mass: 1, overshootClamping: true } as const;
+
