@@ -58,3 +58,17 @@ export const radius = { sm: 12, md: 16, lg: 24, pill: 999 } as const;
 export const spring = { damping: 32, stiffness: 320, mass: 1, overshootClamping: true } as const;
 export const softSpring = { damping: 34, stiffness: 240, mass: 1, overshootClamping: true } as const;
 
+/** Jewel-toned category colors that read well on ivory and on near-black. */
+export const categoryColors = [
+  '#E2A45C', // amber
+  '#E3796D', // coral
+  '#6FA8E0', // sky
+  '#74C49E', // sage
+  '#A996F2', // lavender
+  '#D8BC5E', // gold
+  '#8E9BB2', // slate
+  '#DD8DB8', // rose
+  '#5DBDB6', // teal
+  '#A09DA8', // stone
+] as const;
+
