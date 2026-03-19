@@ -14,3 +14,25 @@ const variants: Record<Variant, TextStyle> = {
   caption: { fontFamily: font.regular, fontSize: 12, lineHeight: 16, letterSpacing: 0.1 },
 };
 
+export function Text({
+  variant = 'body',
+  tone = 'primary',
+  tabular,
+  style,
+  ...rest
+}: TextProps & { variant?: Variant; tone?: Tone; tabular?: boolean }) {
+  const c = useColors();
+  const color = {
+    primary: c.text,
+    secondary: c.textSecondary,
+    tertiary: c.textTertiary,
+    accent: c.accent,
+    onAccent: c.onAccent,
+  }[tone];
+  return (
+    <RNText
+      {...rest}
+      style={[variants[variant], { color }, tabular && { fontVariant: ['tabular-nums'] }, style]}
+    />
+  );
+}
