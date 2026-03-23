@@ -30,3 +30,14 @@ export function HeroDecor() {
   );
 }
 
+/** The signature royal-purple card used for the main number on a screen. */
+export function HeroCard({ children, style }: { children: ReactNode; style?: ViewStyle }) {
+  const c = useColors();
+  return (
+    <View style={[styles.hero, { backgroundColor: c.hero }, style]}>
+      <HeroDecor />
+      {children}
+    </View>
+  );
+}
+
