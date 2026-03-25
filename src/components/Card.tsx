@@ -41,3 +41,14 @@ export function HeroCard({ children, style }: { children: ReactNode; style?: Vie
   );
 }
 
+const styles = StyleSheet.create({
+  card: { borderRadius: CARD_RADIUS, overflow: 'hidden' },
+  hero: {
+    borderRadius: 28,
+    paddingHorizontal: space.xl - 2,
+    paddingTop: space.lg + 2,
+    paddingBottom: space.lg + 4,
+    overflow: 'hidden',
+  },
+  blob: { position: 'absolute', borderRadius: 999, backgroundColor: '#FFFFFF' },
+});
