@@ -44,3 +44,15 @@ export function timeAgo(iso: string): string {
   return `${Math.round(hours / 24)} d ago`;
 }
 
+/** 123456 → "1,234.56"; whole amounts drop the decimals. */
+export function formatMinor(minor: number, opts: { forceDecimals?: boolean } = {}): string {
+  const negative = minor < 0;
+  const abs = Math.abs(Math.round(minor));
+  const whole = Math.floor(abs / 100);
+  const frac = abs % 100;
+  const wholeStr = whole.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const str = frac || opts.forceDecimals ? `${wholeStr}.${pad(frac)}` : wholeStr;
+  return negative ? `-${str}` : str;
+}
+
+export const toMinor = (amount: number) => Math.round(amount * 100);
