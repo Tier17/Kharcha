@@ -16,3 +16,15 @@ export function getUsage(d?: Date): Usage {
   }
 }
 
+export function recordUsage(delta: Partial<Usage>) {
+  const u = getUsage();
+  setMeta(
+    key(),
+    JSON.stringify({
+      seconds: u.seconds + (delta.seconds ?? 0),
+      parses: u.parses + (delta.parses ?? 0),
+      instant: u.instant + (delta.instant ?? 0),
+    }),
+  );
+}
+
