@@ -28,3 +28,7 @@ export function recordUsage(delta: Partial<Usage>) {
   );
 }
 
+/** Estimated AI cost this month in US dollars, the currency OpenAI bills in. */
+export function estimateUsd(u: Usage): number {
+  return (u.seconds / 60) * USD_PER_TRANSCRIBED_MINUTE + u.parses * USD_PER_PARSE;
+}
