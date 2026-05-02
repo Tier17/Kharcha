@@ -72,3 +72,10 @@ export const categoryColors = [
   '#A09DA8', // stone
 ] as const;
 
+/** Previous palette, used by the migration that recolors untouched default categories. */
+export const legacyCategoryColors = [
+  '#D08A3C', '#C8655A', '#5B8DB8', '#4E9F7E', '#8A7CC2',
+  '#C2A23A', '#7F8C99', '#B86B9A', '#5AA3A3', '#9A9A9F',
+] as const;
+
+export const MAX_CATEGORIES = 16;
