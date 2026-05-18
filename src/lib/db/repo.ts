@@ -201,3 +201,9 @@ export function deleteExpenses(ids: string[]) {
   });
 }
 
+export function restoreExpenses(ids: string[]) {
+  db.withTransactionSync(() => {
+    for (const id of ids) db.runSync('UPDATE expenses SET deleted_at = NULL WHERE id = ?', id);
+  });
+}
+
