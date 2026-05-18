@@ -92,3 +92,17 @@ const MIGRATIONS: ((db: SQLiteDatabase) => void)[] = [
   },
 ];
 
+export function migrate() {
+  db.execSync('PRAGMA journal_mode = WAL;');
+  const row = db.getFirstSync<{ user_version: number }>('PRAGMA user_version');
+  let version = row?.user_version ?? 0;
+  while (version < MIGRATIONS.length) {
+    db.withTransactionSync(() => {
+      MIGRATIONS[version](db);
+      db.execSync(`PRAGMA user_version = ${version + 1}`);
+    });
+    version++;
+  }
+}
+
+export const uuid = () => Crypto.randomUUID();
