@@ -207,3 +207,16 @@ export function restoreExpenses(ids: string[]) {
   });
 }
 
+// Brief (insights). Totals only add up entries in the given currency.
+
+export function categoryTotals(currency: string, from: string, to: string): { category_id: string | null; total: number; count: number }[] {
+  return db.getAllSync(
+    `SELECT category_id, SUM(amount_minor) AS total, COUNT(*) AS count FROM expenses
+     WHERE deleted_at IS NULL AND currency = ? AND date >= ? AND date <= ?
+     GROUP BY category_id ORDER BY total DESC`,
+    currency,
+    from,
+    to,
+  );
+}
+
