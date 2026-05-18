@@ -277,3 +277,13 @@ export function nextDueCapture(now: number): Capture | null {
   );
 }
 
+export function updateCapture(id: string, patch: Partial<Omit<Capture, 'id'>>) {
+  const keys = Object.keys(patch) as (keyof typeof patch)[];
+  if (!keys.length) return;
+  db.runSync(
+    `UPDATE captures SET ${keys.map((k) => `${k} = ?`).join(', ')} WHERE id = ?`,
+    ...keys.map((k) => (patch[k] ?? null) as string | number | null),
+    id,
+  );
+}
+
