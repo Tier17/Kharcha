@@ -112,3 +112,12 @@ export function setExpenseCategory(id: string, categoryId: string) {
   );
 }
 
+export function listRecentExpenses(sinceDate: string): Expense[] {
+  return db.getAllSync<Expense>(
+    `SELECT ${EXPENSE_COLUMNS} FROM expenses
+     WHERE deleted_at IS NULL AND date >= ?
+     ORDER BY date DESC, created_at DESC`,
+    sinceDate,
+  );
+}
+
