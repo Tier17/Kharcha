@@ -78,3 +78,13 @@ export function addCategory(name: string, color: string, icon: string): string {
   return id;
 }
 
+export function updateCategory(id: string, patch: { name: string; color: string; icon: string }) {
+  db.runSync(
+    'UPDATE categories SET name = ?, color = ?, icon = ? WHERE id = ?',
+    patch.name,
+    patch.color,
+    patch.icon,
+    id,
+  );
+}
+
