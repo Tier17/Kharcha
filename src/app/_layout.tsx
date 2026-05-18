@@ -59,3 +59,18 @@ export default function RootLayout() {
     if (fontsLoaded) SplashScreen.hideAsync();
   }, [fontsLoaded]);
 
+  if (!fontsLoaded) return null;
+
+  return (
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: c.bg }}>
+      <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: c.bg },
+          animation: 'fade_from_bottom',
+        }}
+      />
+    </GestureHandlerRootView>
+  );
+}
