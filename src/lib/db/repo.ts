@@ -265,3 +265,15 @@ export function listOpenCaptures(): Capture[] {
   );
 }
 
+export function getCapture(id: string): Capture | null {
+  return db.getFirstSync<Capture>('SELECT * FROM captures WHERE id = ?', id);
+}
+
+export function nextDueCapture(now: number): Capture | null {
+  return db.getFirstSync<Capture>(
+    `SELECT * FROM captures WHERE status = 'pending' AND next_attempt_at <= ?
+     ORDER BY created_at ASC LIMIT 1`,
+    now,
+  );
+}
+
