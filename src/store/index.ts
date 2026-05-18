@@ -12,3 +12,17 @@ export type Toast = {
   action?: { label: string; run: () => void };
 };
 
+type State = {
+  ready: boolean;
+  themePref: ThemePref;
+  currency: string;
+  categories: Category[];
+  expenses: Expense[];
+  captures: Capture[];
+  monthTotal: number;
+  todayTotal: number;
+  daily: Record<string, number>;
+  online: boolean;
+  hasApiKey: boolean;
+  toast: Toast | null;
+
