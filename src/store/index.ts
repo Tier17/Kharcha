@@ -80,3 +80,18 @@ export const useStore = create<State>((set, get) => ({
     });
   },
 
+  setThemePref: (pref) => {
+    repo.setMeta('theme', pref);
+    set({ themePref: pref });
+  },
+
+  setCurrency: (code) => {
+    const old = get().currency;
+    if (code === old) return;
+    // One personal ledger in one currency: existing entries follow the switch (no conversion).
+    repo.relabelCurrency(old, code);
+    repo.setMeta('currency', code);
+    set({ currency: code });
+    get().refresh();
+  },
+
