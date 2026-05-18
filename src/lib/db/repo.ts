@@ -25,3 +25,18 @@ export type Expense = {
   updated_at: string;
 };
 
+export type CaptureStatus = 'pending' | 'processing' | 'failed' | 'done';
+
+export type Capture = {
+  id: string;
+  type: 'voice' | 'photo';
+  file_name: string;
+  transcript: string | null;
+  status: CaptureStatus;
+  attempts: number;
+  next_attempt_at: number;
+  error: string | null;
+  duration_ms: number | null;
+  created_at: string;
+};
+
