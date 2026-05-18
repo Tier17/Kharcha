@@ -18,3 +18,33 @@ export function Toast({ bottom }: { bottom: number }) {
     return () => clearTimeout(t);
   }, [toast, dismiss]);
 
+  if (!toast) return null;
+  const bg = scheme === 'dark' ? '#2C2C2E' : '#111113';
+
+  return (
+    <Animated.View
+      key={toast.id}
+      entering={FadeIn.duration(220).easing(Easing.out(Easing.cubic))}
+      exiting={FadeOut.duration(180)}
+      style={[styles.toast, { bottom, backgroundColor: bg }]}
+    >
+      <Text variant="label" numberOfLines={2} style={styles.message}>
+        {toast.message}
+      </Text>
+      {toast.action && (
+        <Pressable
+          hitSlop={10}
+          onPress={() => {
+            toast.action?.run();
+            dismiss();
+          }}
+        >
+          <Text variant="label" style={{ color: '#6FD3A8' }}>
+            {toast.action.label}
+          </Text>
+        </Pressable>
+      )}
+    </Animated.View>
+  );
+}
+
