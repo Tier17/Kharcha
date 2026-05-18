@@ -88,3 +88,11 @@ export function updateCategory(id: string, patch: { name: string; color: string;
   );
 }
 
+/** Hides a category and moves its expenses to `fallbackId` so totals stay intact. */
+export function archiveCategory(id: string, fallbackId: string) {
+  db.withTransactionSync(() => {
+    db.runSync('UPDATE expenses SET category_id = ? WHERE category_id = ?', fallbackId, id);
+    db.runSync('UPDATE categories SET archived = 1 WHERE id = ?', id);
+  });
+}
+
