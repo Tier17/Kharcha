@@ -294,3 +294,14 @@ export function resetProcessingCaptures() {
 
 // Meta (small key/value preferences)
 
+export function getMeta(key: string): string | null {
+  return db.getFirstSync<{ value: string }>('SELECT value FROM meta WHERE key = ?', key)?.value ?? null;
+}
+
+export function setMeta(key: string, value: string) {
+  db.runSync(
+    'INSERT INTO meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value',
+    key,
+    value,
+  );
+}
