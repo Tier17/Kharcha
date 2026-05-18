@@ -51,3 +51,11 @@ export default function RootLayout() {
     };
   }, []);
 
+  useEffect(() => {
+    SystemUI.setBackgroundColorAsync(c.bg);
+  }, [c.bg]);
+
+  useEffect(() => {
+    if (fontsLoaded) SplashScreen.hideAsync();
+  }, [fontsLoaded]);
+
