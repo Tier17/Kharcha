@@ -20,3 +20,11 @@ export function keepRecording(tempUri: string, id: string): string {
   return fileName;
 }
 
+export function deleteTemp(uri: string) {
+  try {
+    const f = new File(uri);
+    if (f.exists) f.delete();
+  } catch {
+    // Best effort; temp files are cleaned by the OS anyway.
+  }
+}
