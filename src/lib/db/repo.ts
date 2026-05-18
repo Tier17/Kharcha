@@ -151,3 +151,31 @@ export function dailyTotals(currency: string, from: string, to: string): Record<
   return Object.fromEntries(rows.map((r) => [r.date, r.total]));
 }
 
+export function insertExpenses(inputs: ExpenseInput[]): string[] {
+  const now = new Date().toISOString();
+  const ids: string[] = [];
+  db.withTransactionSync(() => {
+    for (const e of inputs) {
+      const id = uuid();
+      ids.push(id);
+      db.runSync(
+        `INSERT INTO expenses (${EXPENSE_COLUMNS}) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        id,
+        e.amount_minor,
+        e.currency,
+        e.category_id,
+        e.note,
+        e.merchant ?? null,
+        e.vat_minor ?? null,
+        e.date,
+        e.source,
+        e.capture_id ?? null,
+        e.needs_review ? 1 : 0,
+        now,
+        now,
+      );
+    }
+  });
+  return ids;
+}
+
