@@ -220,3 +220,15 @@ export function categoryTotals(currency: string, from: string, to: string): { ca
   );
 }
 
+export function topMerchants(currency: string, from: string, to: string, limit = 3): { merchant: string; total: number; count: number }[] {
+  return db.getAllSync(
+    `SELECT merchant, SUM(amount_minor) AS total, COUNT(*) AS count FROM expenses
+     WHERE deleted_at IS NULL AND merchant IS NOT NULL AND merchant != '' AND currency = ? AND date >= ? AND date <= ?
+     GROUP BY LOWER(merchant) ORDER BY total DESC LIMIT ?`,
+    currency,
+    from,
+    to,
+    limit,
+  );
+}
+
