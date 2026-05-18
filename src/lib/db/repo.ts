@@ -64,3 +64,17 @@ export function listCategories(): Category[] {
   );
 }
 
+export function addCategory(name: string, color: string, icon: string): string {
+  const id = uuid();
+  const max = db.getFirstSync<{ m: number | null }>('SELECT MAX(sort_order) AS m FROM categories')?.m ?? 0;
+  db.runSync(
+    'INSERT INTO categories (id, name, color, icon, sort_order) VALUES (?, ?, ?, ?, ?)',
+    id,
+    name,
+    color,
+    icon,
+    max + 1,
+  );
+  return id;
+}
+
