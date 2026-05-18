@@ -40,3 +40,16 @@ export type Capture = {
   created_at: string;
 };
 
+export type ExpenseInput = {
+  amount_minor: number;
+  currency: string;
+  category_id: string | null;
+  note: string;
+  merchant?: string | null;
+  vat_minor?: number | null;
+  date: string;
+  source: Expense['source'];
+  capture_id?: string | null;
+  needs_review?: boolean;
+};
+
