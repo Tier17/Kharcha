@@ -55,3 +55,12 @@ export const useStore = create<State>((set, get) => ({
   hasApiKey: false,
   toast: null,
 
+  load: () => {
+    set({
+      themePref: (repo.getMeta('theme') as ThemePref | null) ?? 'dark',
+      currency: repo.getMeta('currency') ?? 'AED',
+      ready: true,
+    });
+    get().refresh();
+  },
+
