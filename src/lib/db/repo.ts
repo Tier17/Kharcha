@@ -96,3 +96,10 @@ export function archiveCategory(id: string, fallbackId: string) {
   });
 }
 
+// Expenses
+
+/** Changes the currency label of entries (amounts are not converted). */
+export function relabelCurrency(from: string, to: string) {
+  db.runSync('UPDATE expenses SET currency = ? WHERE currency = ?', to, from);
+}
+
