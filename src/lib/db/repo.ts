@@ -53,3 +53,14 @@ export type ExpenseInput = {
   needs_review?: boolean;
 };
 
+const EXPENSE_COLUMNS =
+  'id, amount_minor, currency, category_id, note, merchant, vat_minor, date, source, capture_id, needs_review, created_at, updated_at';
+
+// Categories
+
+export function listCategories(): Category[] {
+  return db.getAllSync<Category>(
+    'SELECT * FROM categories WHERE archived = 0 ORDER BY sort_order',
+  );
+}
+
