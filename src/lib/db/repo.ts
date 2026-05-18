@@ -232,3 +232,15 @@ export function topMerchants(currency: string, from: string, to: string, limit =
   );
 }
 
+export function biggestExpenses(currency: string, from: string, to: string, limit = 3): Expense[] {
+  return db.getAllSync<Expense>(
+    `SELECT ${EXPENSE_COLUMNS} FROM expenses
+     WHERE deleted_at IS NULL AND currency = ? AND date >= ? AND date <= ?
+     ORDER BY amount_minor DESC LIMIT ?`,
+    currency,
+    from,
+    to,
+    limit,
+  );
+}
+
