@@ -33,3 +33,21 @@ export default function RootLayout() {
       processQueue();
     });
 
+    const unsubNet = NetInfo.addEventListener((state) => {
+      const online = !!state.isConnected && state.isInternetReachable !== false;
+      const was = useStore.getState().online;
+      useStore.getState().setOnline(online);
+      if (online && !was) processQueue();
+    });
+    const appSub = AppState.addEventListener('change', (s) => {
+      if (s === 'active') {
+        useStore.getState().refresh();
+        processQueue();
+      }
+    });
+    return () => {
+      unsubNet();
+      appSub.remove();
+    };
+  }, []);
+
