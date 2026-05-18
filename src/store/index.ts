@@ -26,3 +26,16 @@ type State = {
   hasApiKey: boolean;
   toast: Toast | null;
 
+  load: () => void;
+  refresh: () => void;
+  setThemePref: (pref: ThemePref) => void;
+  setCurrency: (code: string) => void;
+  setOnline: (online: boolean) => void;
+  setHasApiKey: (has: boolean) => void;
+  showToast: (message: string, action?: Toast['action']) => void;
+  dismissToast: () => void;
+  addExpense: (input: ExpenseInput) => void;
+  editExpense: (id: string, input: ExpenseInput) => void;
+  deleteExpense: (id: string) => void;
+};
+
