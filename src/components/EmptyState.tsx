@@ -5,3 +5,19 @@ import { Mascot } from '@/components/Mascot';
 import { Text } from '@/components/Text';
 import { font, radius, space, useColors } from '@/theme';
 
+const EXAMPLES = ['“Petrol 120”', '“Chai 15 aur samosa 10”', '“Kal groceries 230”'];
+
+function Bubble({ text, index }: { text: string; index: number }) {
+  const c = useColors();
+  return (
+    <Animated.View
+      entering={FadeIn.delay(200 + index * 90).duration(420).easing(Easing.out(Easing.cubic))}
+      style={[styles.bubble, { backgroundColor: c.surface, alignSelf: index % 2 ? 'flex-end' : 'flex-start' }]}
+    >
+      <Text variant="body" tone="secondary">
+        {text}
+      </Text>
+    </Animated.View>
+  );
+}
+
