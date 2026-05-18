@@ -78,3 +78,16 @@ export function Sheet({
   );
 }
 
+const styles = StyleSheet.create({
+  panel: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderTopLeftRadius: radius.lg,
+    borderTopRightRadius: radius.lg,
+    boxShadow: '0 -8px 32px rgba(0,0,0,0.12)',
+  },
+  handleArea: { alignItems: 'center', paddingTop: 10, paddingBottom: 6 },
+  handle: { width: 36, height: 5, borderRadius: 3 },
+});
