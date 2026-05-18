@@ -258,3 +258,10 @@ export function insertCapture(c: Pick<Capture, 'id' | 'type' | 'file_name' | 'du
   );
 }
 
+/** Captures that still need attention (shown at the top of Home). */
+export function listOpenCaptures(): Capture[] {
+  return db.getAllSync<Capture>(
+    "SELECT * FROM captures WHERE status != 'done' ORDER BY created_at DESC",
+  );
+}
+
