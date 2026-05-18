@@ -244,3 +244,17 @@ export function biggestExpenses(currency: string, from: string, to: string, limi
   );
 }
 
+// Captures
+
+export function insertCapture(c: Pick<Capture, 'id' | 'type' | 'file_name' | 'duration_ms'>) {
+  db.runSync(
+    `INSERT INTO captures (id, type, file_name, status, duration_ms, created_at)
+     VALUES (?, ?, ?, 'pending', ?, ?)`,
+    c.id,
+    c.type,
+    c.file_name,
+    c.duration_ms,
+    new Date().toISOString(),
+  );
+}
+
