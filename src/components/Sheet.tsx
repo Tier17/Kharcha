@@ -41,3 +41,12 @@ export function Sheet({
     }
   }, [visible, height, y, backdrop]);
 
+  const drag = Gesture.Pan()
+    .onUpdate((e) => {
+      y.set(Math.max(0, e.translationY));
+    })
+    .onEnd((e) => {
+      if (e.translationY > 120 || e.velocityY > 900) scheduleOnRN(onClose);
+      else y.set(withSpring(0, softSpring));
+    });
+
