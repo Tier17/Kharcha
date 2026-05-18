@@ -193,3 +193,11 @@ export function updateExpense(id: string, e: ExpenseInput) {
   );
 }
 
+/** Soft delete so it can be undone. */
+export function deleteExpenses(ids: string[]) {
+  const now = new Date().toISOString();
+  db.withTransactionSync(() => {
+    for (const id of ids) db.runSync('UPDATE expenses SET deleted_at = ? WHERE id = ?', now, id);
+  });
+}
+
