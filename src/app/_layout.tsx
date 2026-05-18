@@ -8,3 +8,10 @@ import { useEffect } from 'react';
 import { AppState } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { migrate } from '@/lib/db';
+import { resetProcessingCaptures } from '@/lib/db/repo';
+import { processQueue } from '@/lib/queue';
+import { getApiKey } from '@/lib/settings';
+import { useStore } from '@/store';
+import { useColors, useScheme } from '@/theme';
+
