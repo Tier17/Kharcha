@@ -103,3 +103,12 @@ export function relabelCurrency(from: string, to: string) {
   db.runSync('UPDATE expenses SET currency = ? WHERE currency = ?', to, from);
 }
 
+export function setExpenseCategory(id: string, categoryId: string) {
+  db.runSync(
+    'UPDATE expenses SET category_id = ?, needs_review = 0, updated_at = ? WHERE id = ?',
+    categoryId,
+    new Date().toISOString(),
+    id,
+  );
+}
+
