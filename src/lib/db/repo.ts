@@ -287,3 +287,10 @@ export function updateCapture(id: string, patch: Partial<Omit<Capture, 'id'>>) {
   );
 }
 
+/** Anything stuck in "processing" from a previous app session goes back to the queue. */
+export function resetProcessingCaptures() {
+  db.runSync("UPDATE captures SET status = 'pending' WHERE status = 'processing'");
+}
+
+// Meta (small key/value preferences)
+
