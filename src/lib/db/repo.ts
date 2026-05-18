@@ -121,3 +121,10 @@ export function listRecentExpenses(sinceDate: string): Expense[] {
   );
 }
 
+export function listExpensesOn(date: string): Expense[] {
+  return db.getAllSync<Expense>(
+    `SELECT ${EXPENSE_COLUMNS} FROM expenses WHERE deleted_at IS NULL AND date = ? ORDER BY created_at DESC`,
+    date,
+  );
+}
+
