@@ -128,3 +128,14 @@ export function listExpensesOn(date: string): Expense[] {
   );
 }
 
+export function sumBetween(currency: string, from: string, to: string): number {
+  const row = db.getFirstSync<{ total: number | null }>(
+    `SELECT SUM(amount_minor) AS total FROM expenses
+     WHERE deleted_at IS NULL AND currency = ? AND date >= ? AND date <= ?`,
+    currency,
+    from,
+    to,
+  );
+  return row?.total ?? 0;
+}
+
