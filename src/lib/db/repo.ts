@@ -139,3 +139,15 @@ export function sumBetween(currency: string, from: string, to: string): number {
   return row?.total ?? 0;
 }
 
+/** Per-day totals (minor units) between two dates, keyed by YYYY-MM-DD. */
+export function dailyTotals(currency: string, from: string, to: string): Record<string, number> {
+  const rows = db.getAllSync<{ date: string; total: number }>(
+    `SELECT date, SUM(amount_minor) AS total FROM expenses
+     WHERE deleted_at IS NULL AND currency = ? AND date >= ? AND date <= ? GROUP BY date`,
+    currency,
+    from,
+    to,
+  );
+  return Object.fromEntries(rows.map((r) => [r.date, r.total]));
+}
+
