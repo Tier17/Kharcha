@@ -179,3 +179,17 @@ export function insertExpenses(inputs: ExpenseInput[]): string[] {
   return ids;
 }
 
+export function updateExpense(id: string, e: ExpenseInput) {
+  db.runSync(
+    `UPDATE expenses SET amount_minor = ?, currency = ?, category_id = ?, note = ?, date = ?,
+       needs_review = 0, updated_at = ? WHERE id = ?`,
+    e.amount_minor,
+    e.currency,
+    e.category_id,
+    e.note,
+    e.date,
+    new Date().toISOString(),
+    id,
+  );
+}
+
