@@ -39,3 +39,19 @@ type State = {
   deleteExpense: (id: string) => void;
 };
 
+let toastSeq = 0;
+
+export const useStore = create<State>((set, get) => ({
+  ready: false,
+  themePref: 'dark',
+  currency: 'AED',
+  categories: [],
+  expenses: [],
+  captures: [],
+  monthTotal: 0,
+  todayTotal: 0,
+  daily: {},
+  online: true,
+  hasApiKey: false,
+  toast: null,
+
