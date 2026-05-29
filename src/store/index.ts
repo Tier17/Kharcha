@@ -64,3 +64,19 @@ export const useStore = create<State>((set, get) => ({
     get().refresh();
   },
 
+  refresh: () => {
+    const { currency } = get();
+    const today = isoDate();
+    const { from, to } = monthRange();
+    // Show this month plus a little history so early-month lists aren't empty.
+    const since = addDays(from, -31);
+    set({
+      categories: repo.listCategories(),
+      expenses: repo.listRecentExpenses(since),
+      captures: repo.listOpenCaptures(),
+      monthTotal: repo.sumBetween(currency, from, to),
+      todayTotal: repo.sumBetween(currency, today, today),
+      daily: repo.dailyTotals(currency, from, to),
+    });
+  },
+
