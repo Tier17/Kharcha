@@ -95,3 +95,9 @@ export const useStore = create<State>((set, get) => ({
     get().refresh();
   },
 
+  setOnline: (online) => set({ online }),
+  setHasApiKey: (hasApiKey) => set({ hasApiKey }),
+
+  showToast: (message, action) => set({ toast: { id: ++toastSeq, message, action } }),
+  dismissToast: () => set({ toast: null }),
+
