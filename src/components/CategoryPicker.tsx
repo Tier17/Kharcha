@@ -20,3 +20,11 @@ export function CategoryPicker({ expense, onClose }: { expense: Expense | null; 
   const [shown, setShown] = useState<Expense | null>(expense);
   if (expense && expense !== shown) setShown(expense);
 
+  const pick = (categoryId: string) => {
+    if (!shown) return;
+    Haptics.selectionAsync();
+    repo.setExpenseCategory(shown.id, categoryId);
+    refresh();
+    onClose();
+  };
+
