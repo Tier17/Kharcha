@@ -60,3 +60,10 @@ export function StatusPill({
     }
   }, [busy, sweep]);
 
+  const shimmer = useAnimatedStyle(() => ({
+    transform: [{ translateX: -80 + sweep.value * (width + 160) }],
+  }));
+
+  if (!info) return null;
+  const target = info.target;
+
