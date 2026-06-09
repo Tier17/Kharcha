@@ -105,3 +105,19 @@ export function StatusPill({
   );
 }
 
+const styles = StyleSheet.create({
+  wrap: { alignItems: 'center', paddingTop: 6, paddingBottom: 10 },
+  pill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingLeft: 6,
+    paddingRight: 14,
+    height: 34,
+    borderRadius: radius.pill,
+    borderWidth: StyleSheet.hairlineWidth,
+    overflow: 'hidden',
+  },
+  icon: { width: 22, height: 22, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },
+  shine: { position: 'absolute', top: 0, bottom: 0, left: 0, width: 80 },
+});
