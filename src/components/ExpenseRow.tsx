@@ -12,3 +12,18 @@ import type { Category, Expense } from '@/lib/db/repo';
 import { formatMinor } from '@/lib/format';
 import { font, space, useColors } from '@/theme';
 
+function DeleteAction({ drag }: { drag: SharedValue<number> }) {
+  const c = useColors();
+  const style = useAnimatedStyle(() => ({
+    opacity: interpolate(-drag.value, [0, 60], [0, 1], 'clamp'),
+    transform: [{ scale: interpolate(-drag.value, [0, 80], [0.6, 1], 'clamp') }],
+  }));
+  return (
+    <View style={styles.action}>
+      <Animated.View style={[styles.actionInner, style]}>
+        <Icon name="delete" color={c.danger} size={22} />
+      </Animated.View>
+    </View>
+  );
+}
+
