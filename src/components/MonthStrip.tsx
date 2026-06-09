@@ -62,3 +62,28 @@ export function MonthStrip({
   const keys = Array.from({ length: days }, (_, i) => isoDate(new Date(now.getFullYear(), now.getMonth(), i + 1)));
   const max = Math.max(1, ...keys.map((k) => daily[k] ?? 0));
 
+  return (
+    <View style={styles.row}>
+      {keys.map((k, i) => {
+        const future = k > today;
+        const v = daily[k] ?? 0;
+        const isSelected = k === selected;
+        return (
+          <Bar
+            key={k}
+            index={i}
+            ratio={future ? 0 : Math.sqrt(v / max)}
+            disabled={future}
+            onPress={() => {
+              Haptics.selectionAsync();
+              onSelect(k);
+            }}
+            dot={k === today ? (isSelected ? c.accent : c.textTertiary) : null}
+            color={isSelected ? c.accent : future || !v ? c.separator : c.textTertiary}
+          />
+        );
+      })}
+    </View>
+  );
+}
+
