@@ -73,3 +73,25 @@ export default function Home() {
   const [entry, setEntry] = useState<EntryTarget | null>(null);
   const [picking, setPicking] = useState<Expense | null>(null);
 
+  // The day the hero number and list are showing. Today by default.
+  const today = isoDate();
+  const [day, setDay] = useState(today);
+  const isToday = day === today;
+  const goTo = useCallback(
+    (next: string) => {
+      if (next > today) return;
+      Haptics.selectionAsync();
+      setDay(next);
+    },
+    [today],
+  );
+  const dayExpenses = useMemo(
+    () => (isToday ? null : repo.listExpensesOn(day)),
+    // `expenses` changes whenever data changes, so the selected day stays fresh.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [day, isToday, expenses],
+  );
+  const dayTotal = dayExpenses
+    ? dayExpenses.reduce((sum, e) => sum + (e.currency === currency ? e.amount_minor : 0), 0)
+    : todayTotal;
+
