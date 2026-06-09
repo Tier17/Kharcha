@@ -42,3 +42,17 @@ function RoundButton({ icon, label, onPress }: { icon: IconName; label: string; 
   );
 }
 
+function EmptyDay({ isToday }: { isToday: boolean }) {
+  return (
+    <Animated.View entering={FadeIn.duration(300)} style={styles.emptyDay}>
+      <Mascot size={104} resting />
+      <Text variant="bodyMedium" style={{ marginTop: space.md }}>
+        {isToday ? 'Your wallet is resting.' : 'Nothing spent this day.'}
+      </Text>
+      <Text variant="label" tone="secondary" style={{ marginTop: 4 }}>
+        {isToday ? 'Hold the mic when you spend something.' : 'Swipe the card to see other days.'}
+      </Text>
+    </Animated.View>
+  );
+}
+
