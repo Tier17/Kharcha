@@ -118,3 +118,14 @@ export default function Home() {
     return out;
   }, [expenses, dayExpenses, currency]);
 
+  const onPressExpense = useCallback((expense: Expense) => setEntry({ kind: 'edit', expense }), []);
+  const onPressCategory = useCallback((expense: Expense) => setPicking(expense), []);
+  const onOpenCapture = useCallback((capture: Capture) => setEntry({ kind: 'capture', capture }), []);
+
+  const now = new Date();
+  const avgPerDay = Math.round(monthTotal / now.getDate() / 100) * 100;
+  // "Usual day" = average over the other days this month that had spending.
+  const otherDays = Object.entries(daily).filter(([d, v]) => d !== day && v > 0);
+  const usual = otherDays.length ? otherDays.reduce((n, [, v]) => n + v, 0) / otherDays.length : 0;
+  const todayLabel = now.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long' });
+
