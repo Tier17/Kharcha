@@ -87,3 +87,9 @@ export function MonthStrip({
   );
 }
 
+const styles = StyleSheet.create({
+  row: { flexDirection: 'row', alignItems: 'flex-end', height: HEIGHT + 10, gap: 3 },
+  slot: { flex: 1, alignItems: 'center', justifyContent: 'flex-end', height: HEIGHT + 10, paddingBottom: 10 },
+  bar: { width: '100%', maxWidth: 6, borderRadius: 3 },
+  dot: { position: 'absolute', bottom: 0, width: 4, height: 4, borderRadius: 2 },
+});
