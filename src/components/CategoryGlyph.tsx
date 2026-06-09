@@ -18,3 +18,16 @@ export const GLYPHS = [
 ] as const;
 export type Glyph = (typeof GLYPHS)[number];
 
+const BY_NAME: Record<string, Glyph> = {
+  fuel: 'fuel',
+  food: 'food',
+  transport: 'transport',
+  groceries: 'groceries',
+  bills: 'bills',
+  'site/work': 'work',
+  work: 'work',
+  repairs: 'repairs',
+  health: 'health',
+  shopping: 'shopping',
+};
+
