@@ -99,3 +99,30 @@ export function GlyphIcon({ glyph, color, size = 18 }: { glyph: Glyph; color: st
   );
 }
 
+/** Soft tinted squircle with the category's line icon. */
+export function CategoryGlyph({
+  name,
+  icon,
+  color,
+  size = 40,
+}: {
+  name: string | undefined;
+  icon?: string | null;
+  color: string;
+  size?: number;
+}) {
+  return (
+    <View
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size * 0.34,
+        backgroundColor: color + '1F',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <GlyphIcon glyph={glyphFor(name, icon)} color={color} size={size * 0.5} />
+    </View>
+  );
+}
