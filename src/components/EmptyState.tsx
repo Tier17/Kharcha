@@ -40,3 +40,15 @@ export function EmptyState() {
   );
 }
 
+const styles = StyleSheet.create({
+  wrap: { paddingHorizontal: space.xl, paddingTop: space.xxl },
+  title: { fontFamily: font.semibold, fontSize: 32, lineHeight: 38, letterSpacing: -0.9 },
+  sub: { marginTop: space.sm, maxWidth: 300 },
+  bubbles: { marginTop: space.xxl, gap: space.md, paddingHorizontal: space.sm },
+  bubble: {
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: radius.lg,
+    borderBottomLeftRadius: 8,
+  },
+});
