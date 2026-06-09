@@ -56,3 +56,20 @@ function EmptyDay({ isToday }: { isToday: boolean }) {
   );
 }
 
+export default function Home() {
+  const c = useColors();
+  const insets = useSafeAreaInsets();
+  const expenses = useStore((s) => s.expenses);
+  const captures = useStore((s) => s.captures);
+  const categories = useStore((s) => s.categories);
+  const monthTotal = useStore((s) => s.monthTotal);
+  const todayTotal = useStore((s) => s.todayTotal);
+  const daily = useStore((s) => s.daily);
+  const currency = useStore((s) => s.currency);
+  const online = useStore((s) => s.online);
+  const hasApiKey = useStore((s) => s.hasApiKey);
+  const deleteExpense = useStore((s) => s.deleteExpense);
+  const showToast = useStore((s) => s.showToast);
+  const [entry, setEntry] = useState<EntryTarget | null>(null);
+  const [picking, setPicking] = useState<Expense | null>(null);
+
