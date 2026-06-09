@@ -16,3 +16,11 @@ function format(minor: number): string {
   return whole.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
+/** Whole-number part of an amount (in minor units) that counts up/down when it changes. */
+export function AnimatedNumber({ value, style }: { value: number; style: TextStyle | TextStyle[] }) {
+  const v = useSharedValue(value);
+
+  useEffect(() => {
+    v.set(withTiming(value, { duration: 700, easing: Easing.out(Easing.cubic) }));
+  }, [value, v]);
+
