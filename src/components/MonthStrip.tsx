@@ -42,3 +42,23 @@ function Bar({
   );
 }
 
+/**
+ * One slim bar per day of the month. Tap a bar to jump to that day; the selected day is
+ * highlighted and today keeps a small dot.
+ */
+export function MonthStrip({
+  daily,
+  selected,
+  onSelect,
+}: {
+  daily: Record<string, number>;
+  selected: string;
+  onSelect: (date: string) => void;
+}) {
+  const c = useColors();
+  const now = new Date();
+  const today = isoDate(now);
+  const days = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const keys = Array.from({ length: days }, (_, i) => isoDate(new Date(now.getFullYear(), now.getMonth(), i + 1)));
+  const max = Math.max(1, ...keys.map((k) => daily[k] ?? 0));
+
