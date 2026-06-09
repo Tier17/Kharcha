@@ -101,3 +101,13 @@ export const useStore = create<State>((set, get) => ({
   showToast: (message, action) => set({ toast: { id: ++toastSeq, message, action } }),
   dismissToast: () => set({ toast: null }),
 
+  addExpense: (input) => {
+    repo.insertExpenses([input]);
+    get().refresh();
+  },
+
+  editExpense: (id, input) => {
+    repo.updateExpense(id, input);
+    get().refresh();
+  },
+
