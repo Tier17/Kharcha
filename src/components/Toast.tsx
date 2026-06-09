@@ -12,3 +12,9 @@ export function Toast({ bottom }: { bottom: number }) {
   const dismiss = useStore((s) => s.dismissToast);
   const scheme = useScheme();
 
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(dismiss, toast.action ? 5000 : 2800);
+    return () => clearTimeout(t);
+  }, [toast, dismiss]);
+
