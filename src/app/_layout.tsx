@@ -22,3 +22,14 @@ migrate();
 resetProcessingCaptures();
 useStore.getState().load();
 
+export default function RootLayout() {
+  const [fontsLoaded] = useFonts({ Geist_400Regular, Geist_500Medium, Geist_600SemiBold });
+  const scheme = useScheme();
+  const c = useColors();
+
+  useEffect(() => {
+    getApiKey().then((key) => {
+      useStore.getState().setHasApiKey(!!key);
+      processQueue();
+    });
+
