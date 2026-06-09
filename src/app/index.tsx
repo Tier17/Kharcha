@@ -26,3 +26,19 @@ import { dayInsight } from '@/lib/insight';
 import { categoryById, useStore } from '@/store';
 import { moneyType, radius, space, useColors } from '@/theme';
 
+type Section = { key: string; title: string; total: number; data: Expense[] };
+
+function RoundButton({ icon, label, onPress }: { icon: IconName; label: string; onPress: () => void }) {
+  const c = useColors();
+  return (
+    <Pressable
+      hitSlop={8}
+      onPress={onPress}
+      accessibilityLabel={label}
+      style={({ pressed }) => [styles.round, { backgroundColor: c.surface, opacity: pressed ? 0.6 : 1 }]}
+    >
+      <Icon name={icon} color={c.text} size={19} />
+    </Pressable>
+  );
+}
+
