@@ -33,3 +33,21 @@ function describe(captures: Capture[], online: boolean, hasKey: boolean) {
   return { label: 'Understanding', busy: true, target: null };
 }
 
+/** One small line about voice notes in flight; replaces a list of pending rows. */
+export function StatusPill({
+  captures,
+  online,
+  hasKey,
+  onOpen,
+}: {
+  captures: Capture[];
+  online: boolean;
+  hasKey: boolean;
+  onOpen: (c: Capture) => void;
+}) {
+  const c = useColors();
+  const [width, setWidth] = useState(0);
+  const sweep = useSharedValue(0);
+  const info = captures.length ? describe(captures, online, hasKey) : null;
+  const busy = !!info?.busy;
+
