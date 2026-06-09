@@ -191,3 +191,27 @@ export default function Home() {
         </HeroCard>
       </GestureDetector>
 
+      <Pressable
+        onPress={() => router.push('/brief')}
+        style={({ pressed }) => [styles.statsCard, { backgroundColor: c.surface, opacity: pressed ? 0.75 : 1 }]}
+      >
+        <View style={styles.stat}>
+          <Text variant="caption" tone="tertiary" style={styles.statLabel}>
+            {monthName().toUpperCase()}
+          </Text>
+          <Text variant="title" tabular>
+            {formatMinor(monthTotal)}
+          </Text>
+        </View>
+        <View style={[styles.statDivider, { backgroundColor: c.separator }]} />
+        <View style={styles.stat}>
+          <Text variant="caption" tone="tertiary" style={styles.statLabel}>
+            PER DAY
+          </Text>
+          <Text variant="title" tabular>
+            {formatMinor(avgPerDay)}
+          </Text>
+        </View>
+        <Icon name="forward" color={c.textTertiary} size={18} />
+      </Pressable>
+
