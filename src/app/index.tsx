@@ -221,3 +221,40 @@ export default function Home() {
     </View>
   );
 
+  return (
+    <View style={[styles.screen, { backgroundColor: c.bg }]}>
+      <View style={styles.body}>
+        <SectionList
+          sections={sections}
+          keyExtractor={(e) => e.id}
+          ListHeaderComponent={header}
+          ListEmptyComponent={expenses.length ? <EmptyDay isToday={isToday} /> : <EmptyState />}
+          stickySectionHeadersEnabled={false}
+          contentContainerStyle={{ paddingBottom: space.xl }}
+          showsVerticalScrollIndicator={false}
+          renderSectionHeader={({ section }) => (
+            <View style={styles.sectionHeader}>
+              <Text variant="bodyMedium" style={styles.sectionTitle}>
+                {section.title}
+              </Text>
+              {!!section.total && (
+                <Text variant="label" tone="secondary" tabular>
+                  {currency} {formatMinor(section.total)}
+                </Text>
+              )}
+            </View>
+          )}
+          renderItem={({ item, index, section }) => (
+            <ExpenseRow
+              expense={item}
+              first={index === 0}
+              last={index === section.data.length - 1}
+              category={categoryById(categories, item.category_id)}
+              currency={currency}
+              onPress={onPressExpense}
+              onPressCategory={onPressCategory}
+              onDelete={deleteExpense}
+            />
+          )}
+        />
+
