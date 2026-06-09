@@ -24,3 +24,20 @@ export function Sheet({
   const y = useSharedValue(height);
   const backdrop = useSharedValue(0);
 
+  if (visible && !mounted) setMounted(true);
+
+  useEffect(() => {
+    if (visible) {
+      y.set(height);
+      y.set(withSpring(0, softSpring));
+      backdrop.set(withTiming(1, { duration: 220 }));
+    } else {
+      backdrop.set(withTiming(0, { duration: 200 }));
+      y.set(
+        withTiming(height, { duration: 220 }, (done) => {
+          if (done) scheduleOnRN(setMounted, false);
+        }),
+      );
+    }
+  }, [visible, height, y, backdrop]);
+
