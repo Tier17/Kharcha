@@ -15,3 +15,10 @@ import { getApiKey } from '@/lib/settings';
 import { useStore } from '@/store';
 import { useColors, useScheme } from '@/theme';
 
+SplashScreen.preventAutoHideAsync();
+
+// Runs once at startup, before the first render.
+migrate();
+resetProcessingCaptures();
+useStore.getState().load();
+
