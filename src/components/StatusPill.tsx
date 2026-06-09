@@ -51,3 +51,12 @@ export function StatusPill({
   const info = captures.length ? describe(captures, online, hasKey) : null;
   const busy = !!info?.busy;
 
+  useEffect(() => {
+    if (busy) {
+      sweep.set(0);
+      sweep.set(withRepeat(withTiming(1, { duration: 1400, easing: Easing.inOut(Easing.quad) }), -1, false));
+    } else {
+      cancelAnimation(sweep);
+    }
+  }, [busy, sweep]);
+
