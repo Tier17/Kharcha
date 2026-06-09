@@ -50,3 +50,31 @@ export function Sheet({
       else y.set(withSpring(0, softSpring));
     });
 
+  const panelStyle = useAnimatedStyle(() => ({ transform: [{ translateY: y.value }] }));
+  const backdropStyle = useAnimatedStyle(() => ({ opacity: backdrop.value }));
+
+  return (
+    <Modal visible={mounted} transparent statusBarTranslucent navigationBarTranslucent animationType="none" onRequestClose={onClose}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Animated.View style={[StyleSheet.absoluteFill, { backgroundColor: c.backdrop }, backdropStyle]}>
+          <Pressable style={{ flex: 1 }} onPress={onClose} />
+        </Animated.View>
+        <Animated.View
+          style={[
+            styles.panel,
+            { backgroundColor: c.surfaceRaised, paddingBottom: insets.bottom + space.lg },
+            panelStyle,
+          ]}
+        >
+          <GestureDetector gesture={drag}>
+            <View style={styles.handleArea}>
+              <View style={[styles.handle, { backgroundColor: c.separator }]} />
+            </View>
+          </GestureDetector>
+          {children}
+        </Animated.View>
+      </GestureHandlerRootView>
+    </Modal>
+  );
+}
+
