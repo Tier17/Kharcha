@@ -67,3 +67,41 @@ export function StatusPill({
   if (!info) return null;
   const target = info.target;
 
+  return (
+    <Animated.View entering={FadeIn.duration(200)} exiting={FadeOut.duration(200)} style={styles.wrap}>
+      <Pressable
+        disabled={!target}
+        onPress={() => target && onOpen(target)}
+        onLayout={(e) => setWidth(e.nativeEvent.layout.width)}
+        style={[styles.pill, { backgroundColor: c.surfaceRaised, borderColor: c.separator }]}
+      >
+        <View style={[styles.icon, { backgroundColor: busy ? c.accentSoft : c.surface }]}>
+          <Icon name={busy ? 'mic' : 'clock'} color={busy ? c.accent : c.textSecondary} size={13} strokeWidth={2} />
+        </View>
+        <Text variant="label" tone={busy ? 'primary' : 'secondary'}>
+          {info.label}
+          {busy && '…'}
+        </Text>
+        {target && (
+          <View style={{ transform: [{ scaleX: -1 }] }}>
+            <Icon name="back" color={c.textTertiary} size={14} strokeWidth={2} />
+          </View>
+        )}
+        {busy && (
+          <Animated.View
+            pointerEvents="none"
+            style={[
+              styles.shine,
+              {
+                experimental_backgroundImage:
+                  'linear-gradient(90deg, rgba(185,166,255,0) 0%, rgba(185,166,255,0.22) 50%, rgba(185,166,255,0) 100%)',
+              },
+              shimmer,
+            ]}
+          />
+        )}
+      </Pressable>
+    </Animated.View>
+  );
+}
+
