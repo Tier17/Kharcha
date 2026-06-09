@@ -21,3 +21,22 @@ function Bubble({ text, index }: { text: string; index: number }) {
   );
 }
 
+export function EmptyState() {
+  return (
+    <View style={styles.wrap}>
+      <Animated.View entering={FadeIn.duration(420).easing(Easing.out(Easing.cubic))}>
+        <Mascot size={92} />
+        <Text style={[styles.title, { marginTop: space.md }]}>Just say it.</Text>
+        <Text variant="body" tone="secondary" style={styles.sub}>
+          Hold the mic and say what you spent — Urdu, English, or both.
+        </Text>
+      </Animated.View>
+      <View style={styles.bubbles}>
+        {EXAMPLES.map((t, i) => (
+          <Bubble key={t} text={t} index={i} />
+        ))}
+      </View>
+    </View>
+  );
+}
+
