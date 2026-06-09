@@ -48,3 +48,18 @@ export function Toast({ bottom }: { bottom: number }) {
   );
 }
 
+const styles = StyleSheet.create({
+  toast: {
+    position: 'absolute',
+    left: space.xl,
+    right: space.xl,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: space.lg,
+    paddingHorizontal: space.lg + 2,
+    paddingVertical: 14,
+    borderRadius: radius.md,
+    boxShadow: '0 8px 24px rgba(0,0,0,0.18)',
+  },
+  message: { flex: 1, color: '#F5F5F7' },
+});
