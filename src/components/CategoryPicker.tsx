@@ -28,3 +28,41 @@ export function CategoryPicker({ expense, onClose }: { expense: Expense | null; 
     onClose();
   };
 
+  return (
+    <Sheet visible={!!expense} onClose={onClose}>
+      <View style={styles.head}>
+        <Text variant="title">Move to</Text>
+        {shown && (
+          <Text variant="label" tone="secondary" numberOfLines={1}>
+            {shown.note || 'Expense'} · {formatMinor(shown.amount_minor)}
+          </Text>
+        )}
+      </View>
+      <View style={styles.grid}>
+        {categories.map((cat) => {
+          const active = cat.id === shown?.category_id;
+          return (
+            <Pressable
+              key={cat.id}
+              onPress={() => pick(cat.id)}
+              style={({ pressed }) => [
+                styles.cell,
+                {
+                  backgroundColor: active ? c.surface : 'transparent',
+                  borderColor: active ? cat.color + '66' : 'transparent',
+                  opacity: pressed ? 0.6 : 1,
+                },
+              ]}
+            >
+              <CategoryGlyph name={cat.name} icon={cat.icon} color={cat.color} size={46} />
+              <Text variant="caption" tone={active ? 'primary' : 'secondary'} numberOfLines={1}>
+                {cat.name}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
+    </Sheet>
+  );
+}
+
