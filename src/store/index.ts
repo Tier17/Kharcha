@@ -111,3 +111,18 @@ export const useStore = create<State>((set, get) => ({
     get().refresh();
   },
 
+  deleteExpense: (id) => {
+    repo.deleteExpenses([id]);
+    get().refresh();
+    get().showToast('Deleted', {
+      label: 'Undo',
+      run: () => {
+        repo.restoreExpenses([id]);
+        get().refresh();
+      },
+    });
+  },
+}));
+
+export const categoryById = (categories: Category[], id: string | null) =>
+  categories.find((c) => c.id === id);
