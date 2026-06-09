@@ -24,3 +24,18 @@ export function AnimatedNumber({ value, style }: { value: number; style: TextSty
     v.set(withTiming(value, { duration: 700, easing: Easing.out(Easing.cubic) }));
   }, [value, v]);
 
+  const animatedProps = useAnimatedProps(() => {
+    const text = format(v.value);
+    return { text, defaultValue: text } as any;
+  });
+
+  return (
+    <AnimatedTextInput
+      editable={false}
+      underlineColorAndroid="transparent"
+      style={[{ padding: 0, margin: 0 }, style as TextStyle]}
+      animatedProps={animatedProps}
+      defaultValue={format(value)}
+    />
+  );
+}
