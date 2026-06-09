@@ -66,3 +66,21 @@ export function CategoryPicker({ expense, onClose }: { expense: Expense | null; 
   );
 }
 
+const styles = StyleSheet.create({
+  head: { paddingHorizontal: space.xl, paddingTop: space.sm, gap: 4 },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: space.md,
+    paddingTop: space.lg,
+    paddingBottom: space.sm,
+  },
+  cell: {
+    width: '25%',
+    alignItems: 'center',
+    gap: 6,
+    paddingVertical: space.md,
+    borderRadius: radius.md,
+    borderWidth: 1,
+  },
+});
