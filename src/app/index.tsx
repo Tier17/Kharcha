@@ -104,3 +104,17 @@ export default function Home() {
       else if (e.translationX < -60) goTo(addDays(day, 1));
     });
 
+  const sections = useMemo<Section[]>(() => {
+    const out: Section[] = [];
+    for (const e of dayExpenses ?? expenses) {
+      let s = out[out.length - 1];
+      if (!s || s.key !== e.date) {
+        s = { key: e.date, title: dayLabel(e.date), total: 0, data: [] };
+        out.push(s);
+      }
+      s.data.push(e);
+      if (e.currency === currency) s.total += e.amount_minor;
+    }
+    return out;
+  }, [expenses, dayExpenses, currency]);
+
