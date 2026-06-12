@@ -27,3 +27,32 @@ function DeleteAction({ drag }: { drag: SharedValue<number> }) {
   );
 }
 
+/**
+ * One expense inside a day's white card. `first`/`last` round the card's corners so a
+ * day's rows read as one grouped card.
+ */
+export const ExpenseRow = memo(function ExpenseRow({
+  expense,
+  category,
+  currency,
+  first,
+  last,
+  onPress,
+  onPressCategory,
+  onDelete,
+}: {
+  expense: Expense;
+  category: Category | undefined;
+  currency: string;
+  first: boolean;
+  last: boolean;
+  onPress: (e: Expense) => void;
+  onPressCategory: (e: Expense) => void;
+  onDelete: (id: string) => void;
+}) {
+  const c = useColors();
+  const title = expense.note || category?.name || 'Expense';
+  const subtitle = [title !== category?.name ? category?.name : null, expense.merchant].filter(Boolean).join(' · ');
+  const foreign = expense.currency !== currency;
+  const sourceIcon = expense.source === 'voice' ? 'mic' : expense.source === 'photo' ? 'camera' : 'pencil';
+
