@@ -122,3 +122,21 @@ export const ExpenseRow = memo(function ExpenseRow({
   );
 });
 
+const styles = StyleSheet.create({
+  wrap: { marginHorizontal: space.lg, overflow: 'hidden' },
+  row: { flexDirection: 'row', alignItems: 'center', paddingLeft: space.lg, gap: 14 },
+  middle: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: space.md,
+    paddingVertical: 14,
+    paddingRight: space.lg,
+  },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 7 },
+  reviewDot: { width: 7, height: 7, borderRadius: 4 },
+  subRow: { flexDirection: 'row', alignItems: 'center', gap: 5 },
+  amount: { fontFamily: font.semibold, fontSize: 16, letterSpacing: -0.3, fontVariant: ['tabular-nums'] },
+  action: { width: 88, alignItems: 'center', justifyContent: 'center' },
+  actionInner: { alignItems: 'center', justifyContent: 'center' },
+});
