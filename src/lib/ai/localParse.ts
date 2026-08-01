@@ -132,3 +132,19 @@ const FILLER = new Set([
   'yesterday', 'parson', 'maine', 'mene', 'i', 'got', 'dala', 'dalwaya', 'bhara', 'bharwaya', 'se',
 ]);
 
+// Words that mean the note needs real understanding (word numbers, refunds, symbols…).
+const NEEDS_AI = /\b(sau|so|hazar|hazaar|hundred|thousand|lakh|dedh|dhai|sawa|paune|half|aadha|minus|wapas|refund|return)\b|\$|€|£|₹/;
+
+const SPLIT = /\s*(?:,|&|\+|\band\b|\baur\b|\bor\b|\bphir\b|\bthen\b|\bplus\b|\bsath\b)\s*/;
+
+function normalize(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x0660))
+    .replace(/[۰-۹]/g, (d) => String(d.charCodeAt(0) - 0x06f0))
+    .replace(/(\d),(?=\d{3})/g, '$1')
+    .replace(/[.!?;:"“”'’]+(?!\d)/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
