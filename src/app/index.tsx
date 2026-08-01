@@ -275,3 +275,9 @@ export default function Home() {
         onCamera={() => showToast('Receipt scanning is coming in the next update')}
       />
 
+      <EntrySheet target={entry} onClose={() => setEntry(null)} />
+      <CategoryPicker expense={picking} onClose={() => setPicking(null)} />
+    </View>
+  );
+}
+
