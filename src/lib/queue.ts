@@ -64,3 +64,16 @@ async function processOne(capture: repo.Capture, apiKey: string) {
       return;
     }
 
+    // Simple notes are understood on the phone instantly; only tricky ones go to the AI.
+    let result = localParse(transcript, categories.map((c) => c.name), today, store.currency);
+    if (result) {
+      recordUsage({ instant: 1 });
+    } else {
+      result = await parseExpenses(apiKey, transcript, categories, today, store.currency);
+      recordUsage({ parses: 1 });
+    }
+    if (!result.expenses.length) {
+      repo.updateCapture(capture.id, { status: 'failed', error: 'no_amount' });
+      return;
+    }
+
