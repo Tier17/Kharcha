@@ -148,3 +148,9 @@ function normalize(text: string): string {
     .trim();
 }
 
+function dayOffset(text: string): number {
+  if (/\bparson\b/.test(text)) return -2;
+  if (/\b(kal|yesterday)\b/.test(text)) return -1;
+  return 0;
+}
+
