@@ -77,3 +77,23 @@ async function processOne(capture: repo.Capture, apiKey: string) {
       return;
     }
 
+    const other = categories.find((c) => c.name === 'Other');
+    const inputs: repo.ExpenseInput[] = result.expenses.map((e) => {
+      const category = categories.find((c) => c.name === e.category) ?? other;
+      const foreign = e.currency.toUpperCase() !== store.currency;
+      const spoken = amountInText(e.amount, transcript);
+      return {
+        amount_minor: toMinor(e.amount),
+        currency: e.currency.toUpperCase() || store.currency,
+        category_id: category?.id ?? null,
+        note: cleanNote(e.note, category?.name),
+        merchant: e.merchant && !/[؀-ۿ]/.test(e.merchant) ? e.merchant : null,
+        date: /^\d{4}-\d{2}-\d{2}$/.test(e.date) && e.date <= today ? e.date : today,
+        source: 'voice',
+        capture_id: capture.id,
+        needs_review: result.confidence === 'low' || foreign || !spoken,
+      };
+    });
+    const ids = repo.insertExpenses(inputs);
+    repo.updateCapture(capture.id, { status: 'done' });
+
