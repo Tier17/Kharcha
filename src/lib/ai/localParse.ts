@@ -169,3 +169,11 @@ export function localParse(
   // Urdu script needs the AI.
   if (/[؀-ۿ]/.test(text)) return null;
 
+  const offset = dayOffset(text);
+  const [y, m, d] = today.split('-').map(Number);
+  const dt = new Date(y, m - 1, d + offset);
+  const date = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+
+  const available = new Set(categoryNames);
+  const expenses: ParseResult['expenses'] = [];
+
