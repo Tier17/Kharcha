@@ -154,3 +154,18 @@ function dayOffset(text: string): number {
   return 0;
 }
 
+export function localParse(
+  transcript: string,
+  categoryNames: string[],
+  today: string,
+  currency: string,
+): ParseResult | null {
+  const text = normalize(transcript);
+  if (!text || NEEDS_AI.test(text)) return null;
+  const tokens = new Set(text.split(' '));
+  // Another currency was mentioned: let the AI handle it.
+  if (foreignCurrencyWords(currency).some((w) => tokens.has(w))) return null;
+  const ownWords = new Set(currencyByCode(currency)?.words ?? []);
+  // Urdu script needs the AI.
+  if (/[؀-ۿ]/.test(text)) return null;
+
