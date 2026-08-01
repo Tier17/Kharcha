@@ -29,3 +29,11 @@ const VOICE_PRESET: RecordingOptions = {
   web: { mimeType: 'audio/webm' },
 };
 
+const MIN_DURATION_MS = 600;
+/** Hard cap keeps every note cheap; real expense notes take a few seconds. */
+export const MAX_DURATION_MS = 30_000;
+/** Below this peak level (≈ -45 dBFS) nobody spoke; transcription would only hallucinate. */
+const SILENCE_PEAK = 0.12;
+export const WAVE_BARS = 32;
+const SILENT = Array<number>(WAVE_BARS).fill(0);
+
