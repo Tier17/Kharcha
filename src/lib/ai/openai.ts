@@ -28,3 +28,16 @@ export class AiError extends Error {
   }
 }
 
+let lastWarm = 0;
+
+/**
+ * Opens the TLS connection to OpenAI while the user is still talking, so the upload
+ * after release skips the handshake. Unauthenticated, so it costs nothing.
+ */
+export function warmUp() {
+  const now = Date.now();
+  if (now - lastWarm < 30_000) return;
+  lastWarm = now;
+  fetch(`${API}/models`, { method: 'HEAD' }).catch(() => {});
+}
+
