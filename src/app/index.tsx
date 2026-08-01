@@ -267,3 +267,11 @@ export default function Home() {
         <Toast bottom={16} />
       </View>
 
+      {/* Sits in its own row above the mic so it never covers an expense. */}
+      <StatusPill captures={captures} online={online} hasKey={hasApiKey} onOpen={onOpenCapture} />
+
+      <VoiceDock
+        onManual={() => setEntry({ kind: 'new', date: day })}
+        onCamera={() => showToast('Receipt scanning is coming in the next update')}
+      />
+
