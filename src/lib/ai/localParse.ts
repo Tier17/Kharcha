@@ -58,3 +58,13 @@ const KEYWORDS: Record<string, Entry> = {
   water: { category: 'Food', note: 'Water' },
   restaurant: { category: 'Food', note: 'Restaurant' },
 
+  taxi: { category: 'Transport', note: 'Taxi' },
+  cab: { category: 'Transport', note: 'Taxi' },
+  uber: { category: 'Transport', note: 'Uber', merchant: 'Uber' },
+  careem: { category: 'Transport', note: 'Careem', merchant: 'Careem' },
+  metro: { category: 'Transport', note: 'Metro' },
+  bus: { category: 'Transport', note: 'Bus' },
+  salik: { category: 'Transport', note: 'Salik' },
+  parking: { category: 'Transport', note: 'Parking' },
+  toll: { category: 'Transport', note: 'Toll' },
+
