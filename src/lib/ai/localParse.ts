@@ -81,3 +81,12 @@ const KEYWORDS: Record<string, Entry> = {
   lulu: { category: 'Groceries', note: 'Groceries', merchant: 'Lulu' },
   spinneys: { category: 'Groceries', note: 'Groceries', merchant: 'Spinneys' },
 
+  dewa: { category: 'Bills', note: 'DEWA', merchant: 'DEWA' },
+  sewa: { category: 'Bills', note: 'SEWA', merchant: 'SEWA' },
+  etisalat: { category: 'Bills', note: 'Etisalat', merchant: 'Etisalat' },
+  internet: { category: 'Bills', note: 'Internet' },
+  recharge: { category: 'Bills', note: 'Recharge' },
+  rent: { category: 'Bills', note: 'Rent' },
+  kiraya: { category: 'Bills', note: 'Rent' },
+  bill: { category: 'Bills', note: 'Bill' },
+
