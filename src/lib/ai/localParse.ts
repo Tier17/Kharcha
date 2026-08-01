@@ -177,3 +177,24 @@ export function localParse(
   const available = new Set(categoryNames);
   const expenses: ParseResult['expenses'] = [];
 
+  for (const segment of text.split(SPLIT)) {
+    if (!segment) continue;
+    const words = segment.split(' ');
+    const numbers = words.filter((w) => /^\d+(\.\d{1,2})?$/.test(w));
+    let entry: Entry | undefined;
+    let unknown = 0;
+    for (let i = 0; i < words.length; i++) {
+      const w = words[i];
+      const pair = i + 1 < words.length ? `${w} ${words[i + 1]}` : '';
+      if (pair && KEYWORDS[pair]) {
+        if (entry) return null; // two items in one segment: ambiguous
+        entry = KEYWORDS[pair];
+        i++;
+      } else if (KEYWORDS[w]) {
+        if (entry) return null;
+        entry = KEYWORDS[w];
+      } else if (!/^\d/.test(w) && !FILLER.has(w) && !ownWords.has(w)) {
+        unknown++;
+      }
+    }
+
