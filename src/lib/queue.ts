@@ -128,3 +128,10 @@ async function processOne(capture: repo.Capture, apiKey: string) {
   }
 }
 
+/** Short Title Case English title; falls back to the category name for non-Latin script. */
+function cleanNote(note: string, categoryName: string | undefined): string {
+  const t = note.trim().replace(/\s+/g, ' ');
+  if (!t || /[؀-ۿ]/.test(t)) return categoryName ?? '';
+  return t.split(' ').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+}
+
