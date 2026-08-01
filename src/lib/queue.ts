@@ -97,3 +97,34 @@ async function processOne(capture: repo.Capture, apiKey: string) {
     const ids = repo.insertExpenses(inputs);
     repo.updateCapture(capture.id, { status: 'done' });
 
+    const summary = inputs.map((e) => `${e.note} ${formatMinor(e.amount_minor)}`).join(' · ');
+    store.showToast(summary, {
+      label: 'Undo',
+      run: () => {
+        repo.deleteExpenses(ids);
+        repo.updateCapture(capture.id, { status: 'failed', error: 'undone' });
+        useStore.getState().refresh();
+      },
+    });
+  } catch (err) {
+    console.log('[queue] capture failed', err);
+    const retryable = !(err instanceof AiError) || err.retryable;
+    const attempts = capture.attempts + 1;
+    if (!retryable || attempts >= MAX_ATTEMPTS) {
+      repo.updateCapture(capture.id, {
+        status: 'failed',
+        attempts,
+        error: err instanceof AiError && !err.retryable ? (err.code ?? err.message) : 'unreadable',
+      });
+    } else {
+      repo.updateCapture(capture.id, {
+        status: 'pending',
+        attempts,
+        next_attempt_at: Date.now() + BACKOFF_MS[attempts],
+      });
+    }
+  } finally {
+    useStore.getState().refresh();
+  }
+}
+
