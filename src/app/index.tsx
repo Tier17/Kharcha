@@ -258,3 +258,12 @@ export default function Home() {
           )}
         />
 
+        <View
+          pointerEvents="none"
+          style={[styles.fade, { experimental_backgroundImage: `linear-gradient(to bottom, transparent, ${c.bg})` }]}
+        />
+        {/* Keeps scrolled rows from sliding under the clock and battery icons. */}
+        <View pointerEvents="none" style={[styles.statusBar, { height: insets.top, backgroundColor: c.bg }]} />
+        <Toast bottom={16} />
+      </View>
+
