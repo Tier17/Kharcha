@@ -12,3 +12,19 @@ export const MODELS = {
   parse: 'gpt-4.1-mini',
 } as const;
 
+/** Error code stored on a capture when the OpenAI project blocks a model. */
+export const MODEL_ACCESS = 'model_access';
+
+const API = 'https://api.openai.com/v1';
+
+export class AiError extends Error {
+  constructor(
+    message: string,
+    /** false when retrying will not help (bad key, bad input). */
+    readonly retryable: boolean,
+    readonly code?: string,
+  ) {
+    super(message);
+  }
+}
+
