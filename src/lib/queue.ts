@@ -135,3 +135,16 @@ function cleanNote(note: string, categoryName: string | undefined): string {
   return t.split(' ').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
 
+/**
+ * True when the amount appears as digits in the transcript ("1,500", "120.50", "١٢٠").
+ * Amounts spoken as words ("dedh sau") won't match; those are kept but flagged for review.
+ */
+function amountInText(amount: number, text: string): boolean {
+  const normalized = text
+    .replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x0660))
+    .replace(/[۰-۹]/g, (d) => String(d.charCodeAt(0) - 0x06f0))
+    .replace(/(\d),(?=\d{3})/g, '$1');
+  const numbers = normalized.match(/\d+(?:\.\d+)?/g) ?? [];
+  return numbers.some((n) => Math.abs(parseFloat(n) - amount) < 0.005);
+}
+
