@@ -37,3 +37,11 @@ export async function processQueue(): Promise<void> {
   }
 }
 
+function scheduleRetry() {
+  const waiting = repo.listOpenCaptures().filter((c) => c.status === 'pending');
+  if (!waiting.length) return;
+  const next = Math.min(...waiting.map((c) => c.next_attempt_at));
+  if (retryTimer) clearTimeout(retryTimer);
+  retryTimer = setTimeout(processQueue, Math.max(1000, next - Date.now()));
+}
+
