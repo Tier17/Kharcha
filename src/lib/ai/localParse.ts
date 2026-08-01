@@ -107,3 +107,10 @@ const KEYWORDS: Record<string, Entry> = {
   service: { category: 'Repairs', note: 'Service' },
   'oil change': { category: 'Repairs', note: 'Oil Change' },
 
+  doctor: { category: 'Health', note: 'Doctor' },
+  medicine: { category: 'Health', note: 'Medicine' },
+  dawai: { category: 'Health', note: 'Medicine' },
+  pharmacy: { category: 'Health', note: 'Pharmacy' },
+  clinic: { category: 'Health', note: 'Clinic' },
+  hospital: { category: 'Health', note: 'Hospital' },
+
