@@ -45,3 +45,22 @@ function scheduleRetry() {
   retryTimer = setTimeout(processQueue, Math.max(1000, next - Date.now()));
 }
 
+async function processOne(capture: repo.Capture, apiKey: string) {
+  const store = useStore.getState();
+  repo.updateCapture(capture.id, { status: 'processing', error: null });
+  store.refresh();
+
+  try {
+    const categories = repo.listCategories();
+    const today = isoDate();
+    let transcript = capture.transcript;
+    if (!transcript) {
+      transcript = await transcribe(apiKey, audioFile(capture.file_name));
+      recordUsage({ seconds: Math.max(1, (capture.duration_ms ?? 0) / 1000) });
+      repo.updateCapture(capture.id, { transcript });
+    }
+    if (!transcript) {
+      repo.updateCapture(capture.id, { status: 'failed', error: 'no_speech' });
+      return;
+    }
+
