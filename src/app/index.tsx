@@ -215,3 +215,9 @@ export default function Home() {
         <Icon name="forward" color={c.textTertiary} size={18} />
       </Pressable>
 
+      <View style={{ marginTop: space.xl }}>
+        <MonthStrip daily={daily} selected={day} onSelect={goTo} />
+      </View>
+    </View>
+  );
+
