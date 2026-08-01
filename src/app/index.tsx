@@ -129,3 +129,15 @@ export default function Home() {
   const usual = otherDays.length ? otherDays.reduce((n, [, v]) => n + v, 0) / otherDays.length : 0;
   const todayLabel = now.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long' });
 
+  const header = (
+    <View style={[styles.header, { paddingTop: insets.top + space.md }]}>
+      <View style={styles.topRow}>
+        <Text variant="label" tone="secondary">
+          {todayLabel}
+        </Text>
+        <View style={styles.topActions}>
+          <RoundButton icon="chart" label="Monthly brief" onPress={() => router.push('/brief')} />
+          <RoundButton icon="settings" label="Settings" onPress={() => router.push('/settings')} />
+        </View>
+      </View>
+
