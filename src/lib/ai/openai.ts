@@ -146,3 +146,26 @@ export async function parseExpenses(
     'confidence is "low" if any amount or item was unclear, otherwise "high". If no expense is mentioned, return an empty list with "low".',
   ].join('\n');
 
+  const res = await fetch(`${API}/chat/completions`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: MODELS.parse,
+      temperature: 0,
+      messages: [
+        { role: 'system', content: system },
+        { role: 'user', content: transcript },
+      ],
+      response_format: {
+        type: 'json_schema',
+        json_schema: { name: 'expenses', strict: true, schema },
+      },
+    }),
+  });
+  const json = await check(res);
+  const content = json.choices?.[0]?.message?.content;
+  if (!content) throw new AiError('Empty response', true);
+  const parsed = JSON.parse(content) as ParseResult;
+  parsed.expenses = parsed.expenses.filter((e) => Number.isFinite(e.amount) && e.amount > 0);
+  return parsed;
+}
