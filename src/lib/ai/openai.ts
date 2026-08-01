@@ -66,3 +66,23 @@ export async function transcribe(apiKey: string, audio: File): Promise<string> {
   }
 }
 
+async function transcribeWith(model: string, apiKey: string, audio: File): Promise<string> {
+  const form = new FormData();
+  // expo-file-system's File implements Blob, which Expo's fetch can stream as a multipart part.
+  form.append('file', audio, audio.name);
+  form.append('model', model);
+  form.append('response_format', 'json');
+  // No forced language: forcing English on Urdu speech makes the model guess English-sounding
+  // words. The parser translates titles to English instead.
+  // Style hint only. It must not contain sample words or amounts: on quiet audio the
+  // model can echo the prompt back, which would then be parsed as fake expenses.
+  form.append('prompt', 'Short note about money spent, in English or Urdu.');
+  const res = await fetch(`${API}/audio/transcriptions`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${apiKey}` },
+    body: form,
+  });
+  const json = await check(res);
+  return String(json.text ?? '').trim();
+}
+
