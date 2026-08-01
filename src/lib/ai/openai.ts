@@ -55,3 +55,14 @@ async function check(res: Response): Promise<any> {
   throw new AiError(detail || `OpenAI error ${res.status}`, true);
 }
 
+export async function transcribe(apiKey: string, audio: File): Promise<string> {
+  try {
+    return await transcribeWith(MODELS.transcribe, apiKey, audio);
+  } catch (err) {
+    if (err instanceof AiError && err.code === MODEL_ACCESS) {
+      return transcribeWith(MODELS.transcribeFallback, apiKey, audio);
+    }
+    throw err;
+  }
+}
+
