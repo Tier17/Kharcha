@@ -131,3 +131,18 @@ export async function parseExpenses(
     },
   };
 
+  const system = [
+    'You extract personal expenses from a short spoken note.',
+    'The note may be in English, Roman Urdu, Urdu, or a mix. All output text must be in English.',
+    `The user's currency is ${currency}${own ? ` (${own.name}; also said as ${own.words.map((w) => `"${w}"`).join(', ')})` : ''}. Use it unless another currency is clearly stated; then use that currency's ISO code.`,
+    `Today is ${today}. Resolve relative dates: aaj/today = today, kal/yesterday = yesterday (in past-tense spending context), parson = 2 days ago. Dates are YYYY-MM-DD.`,
+    'One note can contain several expenses ("petrol 120 aur chai 15" is two expenses).',
+    `Pick the closest category from: ${names.join(', ')}. Use "Other" if nothing fits.`,
+    'note: a short ENGLISH title of 1-3 words in Title Case naming WHAT was bought, translated if needed (e.g. "Petrol", "Tea", "Tyre Repair"). Never Urdu, never a sentence, never a number or amount word (not "Three Hundred").',
+    'Only extract an amount the speaker actually said. Never guess, estimate or invent an amount. If an item has no spoken amount, leave it out.',
+    'If the text is not about spending money (e.g. random words, a question, silence, "thank you"), return an empty list.',
+    'merchant: the shop or company name in English letters if mentioned (e.g. "PSO", "Carrefour"), otherwise null.',
+    'Convert spoken numbers to digits ("sau" = 100, "dedh sau" = 150, "dhai sau" = 250, "hazaar" = 1000).',
+    'confidence is "low" if any amount or item was unclear, otherwise "high". If no expense is mentioned, return an empty list with "low".',
+  ].join('\n');
+
