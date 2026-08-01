@@ -148,3 +148,10 @@ function amountInText(amount: number, text: string): boolean {
   return numbers.some((n) => Math.abs(parseFloat(n) - amount) < 0.005);
 }
 
+/** Re-queue a failed capture (e.g. after fixing the API key). */
+export function retryCapture(id: string) {
+  repo.updateCapture(id, { status: 'pending', attempts: 0, next_attempt_at: 0, error: null });
+  useStore.getState().refresh();
+  processQueue();
+}
+
