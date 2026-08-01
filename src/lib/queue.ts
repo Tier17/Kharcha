@@ -13,3 +13,13 @@ const BACKOFF_MS = [0, 15_000, 60_000];
 let running = false;
 let retryTimer: ReturnType<typeof setTimeout> | null = null;
 
+/** Processes pending captures one at a time. Safe to call as often as you like. */
+export async function processQueue(): Promise<void> {
+  if (running) return;
+  running = true;
+  try {
+    while (true) {
+      const { online } = useStore.getState();
+      const apiKey = await getApiKey();
+      if (!online || !apiKey) return;
+
