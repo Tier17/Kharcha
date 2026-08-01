@@ -95,3 +95,39 @@ export type ParsedExpense = {
   merchant: string | null;
 };
 
+export type ParseResult = { expenses: ParsedExpense[]; confidence: 'high' | 'low' };
+
+export async function parseExpenses(
+  apiKey: string,
+  transcript: string,
+  categories: Category[],
+  today: string,
+  currency: string,
+): Promise<ParseResult> {
+  const names = categories.map((c) => c.name);
+  const own = currencyByCode(currency);
+  const schema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['expenses', 'confidence'],
+    properties: {
+      expenses: {
+        type: 'array',
+        items: {
+          type: 'object',
+          additionalProperties: false,
+          required: ['amount', 'currency', 'category', 'note', 'date', 'merchant'],
+          properties: {
+            amount: { type: 'number' },
+            currency: { type: 'string' },
+            category: { type: 'string', enum: names },
+            note: { type: 'string' },
+            date: { type: 'string' },
+            merchant: { type: ['string', 'null'] },
+          },
+        },
+      },
+      confidence: { type: 'string', enum: ['high', 'low'] },
+    },
+  };
+
