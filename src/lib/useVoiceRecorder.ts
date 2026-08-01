@@ -122,3 +122,16 @@ export function useVoiceRecorder({ onLimit }: { onLimit: () => void }) {
         return cancel ? 'cancelled' : duration < MIN_DURATION_MS ? 'too-short' : 'silent';
       }
 
+      const id = uuid();
+      const fileName = keepRecording(uri, id);
+      repo.insertCapture({ id, type: 'voice', file_name: fileName, duration_ms: duration });
+      useStore.getState().refresh();
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      processQueue();
+      return 'saved';
+    },
+    [recorder],
+  );
+
+  return { start, stop, isRecording, durationMs, levels };
+}
