@@ -41,3 +41,17 @@ export function warmUp() {
   fetch(`${API}/models`, { method: 'HEAD' }).catch(() => {});
 }
 
+async function check(res: Response): Promise<any> {
+  if (res.ok) return res.json();
+  let detail = '';
+  try {
+    detail = (await res.json())?.error?.message ?? '';
+  } catch {}
+  if (res.status === 401) throw new AiError('Invalid API key', false);
+  if (res.status === 403 || /does not have access to model/i.test(detail)) {
+    throw new AiError(detail || 'Model not allowed', false, MODEL_ACCESS);
+  }
+  if (res.status === 400) throw new AiError(detail || 'Request rejected', false);
+  throw new AiError(detail || `OpenAI error ${res.status}`, true);
+}
+
