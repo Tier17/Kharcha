@@ -95,3 +95,12 @@ export default function Home() {
     ? dayExpenses.reduce((sum, e) => sum + (e.currency === currency ? e.amount_minor : 0), 0)
     : todayTotal;
 
+  const swipe = Gesture.Pan()
+    .runOnJS(true)
+    .activeOffsetX([-24, 24])
+    .failOffsetY([-14, 14])
+    .onEnd((e) => {
+      if (e.translationX > 60) goTo(addDays(day, -1));
+      else if (e.translationX < -60) goTo(addDays(day, 1));
+    });
+
