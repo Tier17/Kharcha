@@ -68,3 +68,16 @@ const KEYWORDS: Record<string, Entry> = {
   parking: { category: 'Transport', note: 'Parking' },
   toll: { category: 'Transport', note: 'Toll' },
 
+  grocery: { category: 'Groceries', note: 'Groceries' },
+  groceries: { category: 'Groceries', note: 'Groceries' },
+  sabzi: { category: 'Groceries', note: 'Vegetables' },
+  vegetables: { category: 'Groceries', note: 'Vegetables' },
+  doodh: { category: 'Groceries', note: 'Milk' },
+  milk: { category: 'Groceries', note: 'Milk' },
+  anday: { category: 'Groceries', note: 'Eggs' },
+  eggs: { category: 'Groceries', note: 'Eggs' },
+  bread: { category: 'Groceries', note: 'Bread' },
+  carrefour: { category: 'Groceries', note: 'Groceries', merchant: 'Carrefour' },
+  lulu: { category: 'Groceries', note: 'Groceries', merchant: 'Lulu' },
+  spinneys: { category: 'Groceries', note: 'Groceries', merchant: 'Spinneys' },
+
