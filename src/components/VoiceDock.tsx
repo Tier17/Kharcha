@@ -48,3 +48,13 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
   const [holding, setHolding] = useState(false);
   const [armedCancel, setArmedCancel] = useState(false);
 
+  const onEnd = async (cancel: boolean) => {
+    setHolding(false);
+    const result = await stop(cancel);
+    const toast = useStore.getState().showToast;
+    if (result === 'too-short') toast('Hold the button while you speak, then let go');
+    if (result === 'cancelled') toast('Discarded');
+    if (result === 'silent') toast('Didn’t hear anything. Try again a little closer.');
+  };
+  const { start, stop, isRecording, durationMs, levels } = useVoiceRecorder({ onLimit: () => onEnd(false) });
+
