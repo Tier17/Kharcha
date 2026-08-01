@@ -198,3 +198,22 @@ export function localParse(
       }
     }
 
+    if (!numbers.length && !entry && unknown === 0) continue; // pure filler like "aaj"
+    // Every segment must be exactly one known item with exactly one amount.
+    if (numbers.length !== 1 || !entry || unknown > 0) return null;
+    if (!available.has(entry.category)) return null;
+
+    const amount = parseFloat(numbers[0]);
+    if (!(amount > 0) || amount > 1_000_000) return null;
+    expenses.push({
+      amount,
+      currency,
+      category: entry.category,
+      note: entry.note,
+      date,
+      merchant: entry.merchant ?? null,
+    });
+  }
+
+  return expenses.length ? { expenses, confidence: 'high' } : null;
+}
