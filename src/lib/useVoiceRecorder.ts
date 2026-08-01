@@ -43,3 +43,17 @@ const toLevel = (db: number | undefined) =>
 
 export type StopResult = 'saved' | 'cancelled' | 'too-short' | 'silent' | 'idle';
 
+export function useVoiceRecorder({ onLimit }: { onLimit: () => void }) {
+  const recorder = useAudioRecorder(VOICE_PRESET);
+  const [isRecording, setIsRecording] = useState(false);
+  const [durationMs, setDurationMs] = useState(0);
+  const [levels, setLevels] = useState<number[]>(SILENT);
+  const starting = useRef<Promise<boolean> | null>(null);
+  const startedAt = useRef(0);
+  const peak = useRef(0);
+  const metered = useRef(false);
+  const onLimitRef = useRef(onLimit);
+  useEffect(() => {
+    onLimitRef.current = onLimit;
+  });
+
