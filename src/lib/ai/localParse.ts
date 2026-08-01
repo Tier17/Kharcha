@@ -98,3 +98,12 @@ const KEYWORDS: Record<string, Entry> = {
   material: { category: 'Site/Work', note: 'Material' },
   steel: { category: 'Site/Work', note: 'Steel' },
 
+  repair: { category: 'Repairs', note: 'Repair' },
+  mechanic: { category: 'Repairs', note: 'Mechanic' },
+  mistri: { category: 'Repairs', note: 'Mechanic' },
+  tyre: { category: 'Repairs', note: 'Tyre' },
+  tire: { category: 'Repairs', note: 'Tyre' },
+  puncture: { category: 'Repairs', note: 'Puncture' },
+  service: { category: 'Repairs', note: 'Service' },
+  'oil change': { category: 'Repairs', note: 'Oil Change' },
+
