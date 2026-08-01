@@ -57,3 +57,18 @@ export function useVoiceRecorder({ onLimit }: { onLimit: () => void }) {
     onLimitRef.current = onLimit;
   });
 
+  // Poll metering while recording to drive the live waveform.
+  useEffect(() => {
+    if (!isRecording) return;
+    const id = setInterval(() => {
+      const s = recorder.getStatus();
+      if (s.metering != null) metered.current = true;
+      const level = toLevel(s.metering);
+      if (level > peak.current) peak.current = level;
+      setDurationMs(s.durationMillis);
+      if (s.durationMillis >= MAX_DURATION_MS) onLimitRef.current();
+      setLevels((prev) => [...prev.slice(1), level]);
+    }, 50);
+    return () => clearInterval(id);
+  }, [isRecording, recorder]);
+
