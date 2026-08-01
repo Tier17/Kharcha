@@ -114,3 +114,13 @@ const KEYWORDS: Record<string, Entry> = {
   clinic: { category: 'Health', note: 'Clinic' },
   hospital: { category: 'Health', note: 'Hospital' },
 
+  shopping: { category: 'Shopping', note: 'Shopping' },
+  clothes: { category: 'Shopping', note: 'Clothes' },
+  kapray: { category: 'Shopping', note: 'Clothes' },
+  kapde: { category: 'Shopping', note: 'Clothes' },
+  shoes: { category: 'Shopping', note: 'Shoes' },
+  joote: { category: 'Shopping', note: 'Shoes' },
+  amazon: { category: 'Shopping', note: 'Shopping', merchant: 'Amazon' },
+  noon: { category: 'Shopping', note: 'Shopping', merchant: 'noon' },
+};
+
