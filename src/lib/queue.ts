@@ -7,3 +7,9 @@ import { getApiKey } from '@/lib/settings';
 import { recordUsage } from '@/lib/usage';
 import { useStore } from '@/store';
 
+const MAX_ATTEMPTS = 3;
+const BACKOFF_MS = [0, 15_000, 60_000];
+
+let running = false;
+let retryTimer: ReturnType<typeof setTimeout> | null = null;
+
