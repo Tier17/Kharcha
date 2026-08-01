@@ -90,3 +90,11 @@ const KEYWORDS: Record<string, Entry> = {
   kiraya: { category: 'Bills', note: 'Rent' },
   bill: { category: 'Bills', note: 'Bill' },
 
+  site: { category: 'Site/Work', note: 'Site' },
+  cement: { category: 'Site/Work', note: 'Cement' },
+  sand: { category: 'Site/Work', note: 'Sand' },
+  labour: { category: 'Site/Work', note: 'Labour' },
+  labor: { category: 'Site/Work', note: 'Labour' },
+  material: { category: 'Site/Work', note: 'Material' },
+  steel: { category: 'Site/Work', note: 'Steel' },
+
