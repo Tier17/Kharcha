@@ -141,3 +141,53 @@ export default function Home() {
         </View>
       </View>
 
+      <GestureDetector gesture={swipe}>
+        <HeroCard style={{ marginTop: space.lg }}>
+          <View style={styles.dayRow}>
+            <Animated.Text
+              key={day}
+              entering={FadeIn.duration(220)}
+              style={[styles.heroLabel, { color: c.onHero }]}
+              numberOfLines={1}
+            >
+              {dayLabel(day)}
+            </Animated.Text>
+            <View style={styles.dayArrows}>
+              <Pressable
+                hitSlop={10}
+                onPress={() => goTo(addDays(day, -1))}
+                accessibilityLabel="Previous day"
+                style={({ pressed }) => [styles.arrow, { opacity: pressed ? 0.6 : 1 }]}
+              >
+                <Icon name="back" color={c.onHero} size={18} />
+              </Pressable>
+              <Pressable
+                hitSlop={10}
+                disabled={isToday}
+                onPress={() => goTo(addDays(day, 1))}
+                accessibilityLabel="Next day"
+                style={({ pressed }) => [styles.arrow, { opacity: isToday ? 0.35 : pressed ? 0.6 : 1 }]}
+              >
+                <Icon name="forward" color={c.onHero} size={18} />
+              </Pressable>
+            </View>
+          </View>
+          <View style={styles.totalRow}>
+            <Text style={[styles.totalCurrency, { color: c.onHero, opacity: 0.7 }]}>{currency}</Text>
+            <AnimatedNumber value={dayTotal} style={[styles.total, { color: c.onHero }]} />
+          </View>
+          <View style={styles.heroFoot}>
+            <Text variant="label" style={{ color: c.onHero, opacity: 0.85, flexShrink: 1 }}>
+              {dayInsight({ total: dayTotal, usual, isToday })}
+            </Text>
+            {!isToday && (
+              <Pressable onPress={() => goTo(today)} hitSlop={8} style={styles.backToday}>
+                <Text variant="label" style={{ color: c.onHero }}>
+                  Today
+                </Text>
+              </Pressable>
+            )}
+          </View>
+        </HeroCard>
+      </GestureDetector>
+
