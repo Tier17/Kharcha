@@ -23,3 +23,17 @@ export async function processQueue(): Promise<void> {
       const apiKey = await getApiKey();
       if (!online || !apiKey) return;
 
+      const capture = repo.nextDueCapture(Date.now());
+      if (!capture) {
+        scheduleRetry();
+        return;
+      }
+      await processOne(capture, apiKey);
+    }
+  } catch (err) {
+    console.log('[queue] stopped', err);
+  } finally {
+    running = false;
+  }
+}
+
