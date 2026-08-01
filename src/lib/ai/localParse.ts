@@ -124,3 +124,11 @@ const KEYWORDS: Record<string, Entry> = {
   noon: { category: 'Shopping', note: 'Shopping', merchant: 'noon' },
 };
 
+// Filler words that may sit next to an item/amount without changing meaning.
+const FILLER = new Set([
+  'ka', 'ki', 'ke', 'ko', 'pe', 'par', 'mein', 'me', 'for',
+  'the', 'a', 'of', 'on', 'liya', 'li', 'liye', 'diya', 'diye', 'di', 'kharcha', 'kharch', 'kiya', 'kiye',
+  'hua', 'hue', 'gaya', 'gaye', 'paid', 'spent', 'bought', 'ka', 'wala', 'wali', 'aaj', 'today', 'kal',
+  'yesterday', 'parson', 'maine', 'mene', 'i', 'got', 'dala', 'dalwaya', 'bhara', 'bharwaya', 'se',
+]);
+
