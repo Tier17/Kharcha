@@ -86,3 +86,12 @@ async function transcribeWith(model: string, apiKey: string, audio: File): Promi
   return String(json.text ?? '').trim();
 }
 
+export type ParsedExpense = {
+  amount: number;
+  currency: string;
+  category: string;
+  note: string;
+  date: string;
+  merchant: string | null;
+};
+
