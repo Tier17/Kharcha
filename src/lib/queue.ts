@@ -155,3 +155,7 @@ export function retryCapture(id: string) {
   processQueue();
 }
 
+export function dismissCapture(id: string) {
+  repo.updateCapture(id, { status: 'done' });
+  useStore.getState().refresh();
+}
