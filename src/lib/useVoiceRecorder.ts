@@ -37,3 +37,9 @@ const SILENCE_PEAK = 0.12;
 export const WAVE_BARS = 32;
 const SILENT = Array<number>(WAVE_BARS).fill(0);
 
+/** Maps recorder metering (dBFS, about -60…0) to 0…1. */
+const toLevel = (db: number | undefined) =>
+  db == null ? 0 : Math.max(0, Math.min(1, (db + 52) / 46)) ** 1.4;
+
+export type StopResult = 'saved' | 'cancelled' | 'too-short' | 'silent' | 'idle';
+
