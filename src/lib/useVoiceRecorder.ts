@@ -72,3 +72,30 @@ export function useVoiceRecorder({ onLimit }: { onLimit: () => void }) {
     return () => clearInterval(id);
   }, [isRecording, recorder]);
 
+  const start = useCallback(async (): Promise<boolean> => {
+    const run = async () => {
+      warmUp();
+      let perm = await getRecordingPermissionsAsync();
+      if (!perm.granted) {
+        perm = await requestRecordingPermissionsAsync();
+        // The permission dialog interrupted the hold, so don't start recording now.
+        if (!perm.granted) {
+          useStore.getState().showToast('Microphone access is off. Enable it in system settings.');
+        }
+        return false;
+      }
+      await setAudioModeAsync({ allowsRecording: true, playsInSilentMode: true });
+      await recorder.prepareToRecordAsync();
+      recorder.record();
+      startedAt.current = Date.now();
+      peak.current = 0;
+      metered.current = false;
+      setDurationMs(0);
+      setIsRecording(true);
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+      return true;
+    };
+    starting.current = run().catch(() => false);
+    return starting.current;
+  }, [recorder]);
+
