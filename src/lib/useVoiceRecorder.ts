@@ -99,3 +99,11 @@ export function useVoiceRecorder({ onLimit }: { onLimit: () => void }) {
     return starting.current;
   }, [recorder]);
 
+  const stop = useCallback(
+    async (cancel: boolean): Promise<StopResult> => {
+      // The 30s cap and the finger lifting can both ask to stop; only the first one counts.
+      const pending = starting.current;
+      starting.current = null;
+      const began = await (pending ?? Promise.resolve(false));
+      if (!began) return 'idle';
+
