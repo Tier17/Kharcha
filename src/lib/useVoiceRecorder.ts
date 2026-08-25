@@ -107,3 +107,11 @@ export function useVoiceRecorder({ onLimit }: { onLimit: () => void }) {
       const began = await (pending ?? Promise.resolve(false));
       if (!began) return 'idle';
 
+      const duration = Date.now() - startedAt.current;
+      setIsRecording(false);
+      setLevels(SILENT);
+      await recorder.stop();
+      setAudioModeAsync({ allowsRecording: false }).catch(() => {});
+      const uri = recorder.uri;
+      if (!uri) return 'idle';
+
