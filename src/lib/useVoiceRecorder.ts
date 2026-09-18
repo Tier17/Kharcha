@@ -115,3 +115,10 @@ export function useVoiceRecorder({ onLimit }: { onLimit: () => void }) {
       const uri = recorder.uri;
       if (!uri) return 'idle';
 
+      const silent = metered.current && peak.current < SILENCE_PEAK;
+      if (cancel || duration < MIN_DURATION_MS || silent) {
+        deleteTemp(uri);
+        Haptics.selectionAsync();
+        return cancel ? 'cancelled' : duration < MIN_DURATION_MS ? 'too-short' : 'silent';
+      }
+
