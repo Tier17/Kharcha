@@ -20,3 +20,21 @@ import { MAX_DURATION_MS, WAVE_BARS, useVoiceRecorder } from '@/lib/useVoiceReco
 import { useStore } from '@/store';
 import { font, space, spring, useColors } from '@/theme';
 
+const MIC = 76;
+const ORB = 132;
+const CANCEL_DISTANCE = 110;
+
+function SideButton({ icon, label, onPress }: { icon: IconName; label: string; onPress: () => void }) {
+  const c = useColors();
+  return (
+    <Pressable onPress={onPress} hitSlop={8} style={({ pressed }) => [styles.side, { opacity: pressed ? 0.55 : 1 }]}>
+      <View style={[styles.sideIcon, { backgroundColor: c.surface, borderColor: c.separator }]}>
+        <Icon name={icon} color={c.text} size={21} />
+      </View>
+      <Text variant="caption" tone="secondary">
+        {label}
+      </Text>
+    </Pressable>
+  );
+}
+
