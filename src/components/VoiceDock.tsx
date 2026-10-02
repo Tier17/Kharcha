@@ -14,3 +14,9 @@ import Animated, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { scheduleOnRN } from 'react-native-worklets';
 
+import { Icon, type IconName } from '@/components/Icon';
+import { Text } from '@/components/Text';
+import { MAX_DURATION_MS, WAVE_BARS, useVoiceRecorder } from '@/lib/useVoiceRecorder';
+import { useStore } from '@/store';
+import { font, space, spring, useColors } from '@/theme';
+
