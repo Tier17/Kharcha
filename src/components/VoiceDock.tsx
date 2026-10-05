@@ -38,3 +38,13 @@ function SideButton({ icon, label, onPress }: { icon: IconName; label: string; o
   );
 }
 
+/**
+ * The bottom bar: receipt, the hold-to-talk orb, and manual entry. While the orb is held,
+ * a full-screen listening view takes over.
+ */
+export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCamera: () => void }) {
+  const c = useColors();
+  const insets = useSafeAreaInsets();
+  const [holding, setHolding] = useState(false);
+  const [armedCancel, setArmedCancel] = useState(false);
+
