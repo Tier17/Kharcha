@@ -68,3 +68,10 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
     amp.set(withTiming(latest, { duration: 160, easing: Easing.out(Easing.quad) }));
   }, [latest, amp]);
 
+  const onBegin = () => {
+    setHolding(true);
+    setArmedCancel(false);
+    start();
+  };
+  const onArm = (armed: boolean) => setArmedCancel(armed);
+
