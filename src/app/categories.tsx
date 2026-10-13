@@ -147,3 +147,29 @@ export default function Categories() {
         </Pressable>
       </View>
 
+      <ScrollView contentContainerStyle={{ paddingBottom: insets.bottom + space.xxxl }}>
+        <View style={[styles.card, { backgroundColor: c.surfaceRaised }]}>
+          {categories.map((cat, i) => (
+            <Pressable
+              key={cat.id}
+              onPress={() => edit(cat)}
+              style={({ pressed }) => [
+                styles.row,
+                i > 0 && { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.separator },
+                pressed && { opacity: 0.6 },
+              ]}
+            >
+              <CategoryGlyph name={cat.name} icon={cat.icon} color={cat.color} size={36} />
+              <Text variant="bodyMedium" style={{ flex: 1 }}>
+                {cat.name}
+              </Text>
+              <Icon name="forward" color={c.textTertiary} size={16} />
+            </Pressable>
+          ))}
+        </View>
+        <Text variant="caption" tone="tertiary" style={styles.footer}>
+          {categories.length} of {MAX_CATEGORIES}. Voice notes are always filed into one of these, never a new one.
+          Deleting a category moves its expenses to Other.
+        </Text>
+      </ScrollView>
+
