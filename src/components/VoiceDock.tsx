@@ -128,3 +128,21 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
   const half = levels.slice(WAVE_BARS / 2);
   const mirrored = [...half].reverse().concat(half);
 
+  return (
+    <>
+      {holding && (
+        <Animated.View
+          entering={FadeIn.duration(200)}
+          exiting={FadeOut.duration(240)}
+          pointerEvents="none"
+          style={[StyleSheet.absoluteFill, { zIndex: 5 }]}
+        >
+          <View style={[StyleSheet.absoluteFill, { backgroundColor: c.bg, opacity: 0.97 }]} />
+          <View style={[styles.listen, { paddingTop: insets.top + 72 }]}>
+            <View style={styles.kickerRow}>
+              <View style={[styles.liveDot, { backgroundColor: armedCancel ? c.textTertiary : c.accent }]} />
+              <Text variant="caption" tone="secondary" style={styles.kicker}>
+                {armedCancel ? 'RELEASE TO DISCARD' : 'LISTENING'}
+              </Text>
+            </View>
+
