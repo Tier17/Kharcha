@@ -173,3 +173,10 @@ export default function Categories() {
         </Text>
       </ScrollView>
 
+      <Sheet visible={!!draft} onClose={() => setDraft(null)}>
+        {shown && <Editor key={shown.n} draft={shown.draft} onClose={() => setDraft(null)} />}
+      </Sheet>
+    </View>
+  );
+}
+
