@@ -135,3 +135,15 @@ export default function Categories() {
     setDraft({ id: null, name: '', color, icon: 'other' });
   };
 
+  return (
+    <View style={[styles.screen, { backgroundColor: c.bg, paddingTop: insets.top }]}>
+      <View style={styles.nav}>
+        <Pressable hitSlop={14} onPress={() => router.back()} style={{ marginLeft: -6 }}>
+          <Icon name="back" color={c.text} size={24} />
+        </Pressable>
+        <Text variant="title">Categories</Text>
+        <Pressable hitSlop={14} onPress={add} disabled={full} style={{ opacity: full ? 0.3 : 1 }}>
+          <Icon name="plus" color={c.text} size={24} />
+        </Pressable>
+      </View>
+
