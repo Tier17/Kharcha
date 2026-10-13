@@ -221,3 +221,20 @@ function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void
         })}
       </ScrollView>
 
+      <View style={styles.pad}>
+        {KEYS.map((k) => (
+          <Pressable
+            key={k}
+            onPress={() => press(k)}
+            onLongPress={k === '⌫' ? () => setAmount('') : undefined}
+            style={({ pressed }) => [styles.key, pressed && { backgroundColor: c.surface }]}
+          >
+            {k === '⌫' ? (
+              <Icon name="back" color={c.text} size={22} />
+            ) : (
+              <Text style={[styles.keyText, { color: c.text }]}>{k}</Text>
+            )}
+          </Pressable>
+        ))}
+      </View>
+
