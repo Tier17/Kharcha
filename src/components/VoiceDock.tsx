@@ -122,3 +122,9 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
     transform: [{ translateX: dragX.value * 0.5 }],
   }));
 
+  const seconds = Math.floor(durationMs / 1000);
+  const timer = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+  const nearLimit = durationMs > MAX_DURATION_MS - 5000;
+  const half = levels.slice(WAVE_BARS / 2);
+  const mirrored = [...half].reverse().concat(half);
+
