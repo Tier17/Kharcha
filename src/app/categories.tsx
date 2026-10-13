@@ -96,3 +96,25 @@ function Editor({ draft, onClose }: { draft: Draft; onClose: () => void }) {
         ))}
       </View>
 
+      <View style={styles.editorActions}>
+        {draft.id && !isOther && (
+          <Pressable onPress={remove} hitSlop={8} style={styles.deleteBtn}>
+            <Text variant="bodyMedium" style={{ color: c.danger }}>
+              Delete
+            </Text>
+          </Pressable>
+        )}
+        <Pressable
+          onPress={save}
+          disabled={!canSave}
+          style={[styles.saveBtn, { backgroundColor: canSave ? c.accent : c.surface }]}
+        >
+          <Text variant="bodyMedium" style={{ color: canSave ? c.onAccent : c.textTertiary }}>
+            {draft.id ? 'Save' : 'Add category'}
+          </Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+}
+
