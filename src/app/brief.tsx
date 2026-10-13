@@ -14,3 +14,10 @@ import { formatMinor, isoDate } from '@/lib/format';
 import { categoryById, useStore } from '@/store';
 import { moneyType, radius, space, useColors } from '@/theme';
 
+function monthBounds(offset: number) {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+  const end = new Date(now.getFullYear(), now.getMonth() + offset + 1, 0);
+  return { start, end, from: isoDate(start), to: isoDate(end) };
+}
+
