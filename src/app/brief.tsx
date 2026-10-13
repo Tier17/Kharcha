@@ -35,3 +35,14 @@ function Bar({ ratio, color, index }: { ratio: number; color: string; index: num
   );
 }
 
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <View style={styles.section}>
+      <Text variant="bodyMedium" style={styles.sectionTitle}>
+        {title}
+      </Text>
+      {children}
+    </View>
+  );
+}
+
