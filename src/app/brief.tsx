@@ -219,3 +219,35 @@ export default function Brief() {
   );
 }
 
+const styles = StyleSheet.create({
+  screen: { flex: 1 },
+  nav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: space.xl,
+    paddingVertical: space.lg,
+  },
+  monthSwitch: { flexDirection: 'row', alignItems: 'center', gap: space.sm },
+  hero: { marginHorizontal: space.lg, marginTop: space.xs },
+  totalRow: { flexDirection: 'row', alignItems: 'flex-start', marginTop: space.xs },
+  empty: { alignItems: 'center', marginTop: space.xxl },
+  cardPad: { paddingHorizontal: space.lg, paddingVertical: space.sm },
+  cardList: { paddingHorizontal: space.lg },
+  total: { ...moneyType.hero, fontSize: 64, lineHeight: 74 },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: space.sm, marginTop: space.md },
+  chip: {
+    paddingHorizontal: 12,
+    height: 30,
+    borderRadius: radius.pill,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.18)',
+  },
+  section: { marginTop: space.xl, paddingHorizontal: space.lg, gap: space.md },
+  sectionTitle: { fontSize: 17, letterSpacing: -0.3, marginLeft: space.sm },
+  catRow: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: 10 },
+  catTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
+  track: { height: 6, borderRadius: 3, overflow: 'hidden' },
+  fill: { height: 6, borderRadius: 3 },
+  listRow: { flexDirection: 'row', alignItems: 'center', gap: space.md, paddingVertical: 14 },
+});
