@@ -46,3 +46,12 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
+export default function Brief() {
+  const c = useColors();
+  const insets = useSafeAreaInsets();
+  const categories = useStore((s) => s.categories);
+  const currency = useStore((s) => s.currency);
+  // Recompute when expenses change elsewhere.
+  const version = useStore((s) => s.expenses);
+  const [offset, setOffset] = useState(0);
+
