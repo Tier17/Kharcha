@@ -66,3 +66,9 @@ function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void
   const deleteExpense = useStore((s) => s.deleteExpense);
   const hasApiKey = useStore((s) => s.hasApiKey);
 
+  const editing = shown.kind === 'edit' ? shown.expense : null;
+  const [amount, setAmount] = useState(editing ? formatMinor(editing.amount_minor).replace(/,/g, '') : '');
+  const [note, setNote] = useState(editing?.note ?? '');
+  const [categoryId, setCategoryId] = useState<string | null>(editing?.category_id ?? null);
+  const [date, setDate] = useState(editing?.date ?? (shown.kind === 'new' ? shown.date : undefined) ?? isoDate());
+
