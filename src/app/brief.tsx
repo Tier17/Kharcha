@@ -21,3 +21,17 @@ function monthBounds(offset: number) {
   return { start, end, from: isoDate(start), to: isoDate(end) };
 }
 
+function Bar({ ratio, color, index }: { ratio: number; color: string; index: number }) {
+  const c = useColors();
+  const w = useSharedValue(0);
+  useEffect(() => {
+    w.set(withDelay(index * 50, withTiming(ratio, { duration: 600, easing: Easing.out(Easing.cubic) })));
+  }, [ratio, index, w]);
+  const style = useAnimatedStyle(() => ({ width: `${Math.max(2, w.value * 100)}%` }));
+  return (
+    <View style={[styles.track, { backgroundColor: c.surface }]}>
+      <Animated.View style={[styles.fill, { backgroundColor: color }, style]} />
+    </View>
+  );
+}
+
