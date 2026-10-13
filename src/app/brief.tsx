@@ -98,3 +98,37 @@ export default function Brief() {
         <View style={{ width: 24 }} />
       </View>
 
+      <ScrollView contentContainerStyle={{ paddingBottom: insets.bottom + space.xxxl }} showsVerticalScrollIndicator={false}>
+        <HeroCard style={styles.hero}>
+          <Text variant="label" style={{ color: c.onHero, opacity: 0.8 }}>
+            Spent in {data.label.split(' ')[0]}
+          </Text>
+          <View style={styles.totalRow}>
+            <Text style={{ ...moneyType.code, color: c.onHero, opacity: 0.7, marginTop: 18, marginRight: 8 }}>
+              {currency}
+            </Text>
+            <Text tabular style={[styles.total, { color: c.onHero }]}>
+              {formatMinor(data.total)}
+            </Text>
+          </View>
+          <View style={styles.chips}>
+            {change !== null && (
+              <View style={styles.chip}>
+                <Text variant="label" style={{ color: c.onHero }}>
+                  {change > 0 ? '▲' : '▼'} {Math.abs(Math.round(change * 100))}% vs last month
+                </Text>
+              </View>
+            )}
+            <View style={styles.chip}>
+              <Text variant="label" tabular style={{ color: c.onHero }}>
+                {formatMinor(data.perDay)} / day
+              </Text>
+            </View>
+            <View style={styles.chip}>
+              <Text variant="label" style={{ color: c.onHero }}>
+                {data.count} {data.count === 1 ? 'entry' : 'entries'}
+              </Text>
+            </View>
+          </View>
+        </HeroCard>
+
