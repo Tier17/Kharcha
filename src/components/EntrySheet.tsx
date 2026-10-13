@@ -183,3 +183,12 @@ function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void
         </View>
       )}
 
+      <TextInput
+        value={note}
+        onChangeText={setNote}
+        placeholder="What was it for?"
+        placeholderTextColor={c.textTertiary}
+        returnKeyType="done"
+        style={[styles.note, { color: c.text, borderColor: c.separator }]}
+      />
+
