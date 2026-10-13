@@ -68,3 +68,16 @@ function Editor({ draft, onClose }: { draft: Draft; onClose: () => void }) {
         )}
       </View>
 
+      <Text variant="caption" tone="tertiary" style={styles.editorLabel}>
+        COLOR
+      </Text>
+      <View style={styles.swatches}>
+        {categoryColors.map((col) => (
+          <Pressable
+            key={col}
+            onPress={() => setColor(col)}
+            style={[styles.swatch, { backgroundColor: col, borderColor: color === col ? c.text : 'transparent' }]}
+          />
+        ))}
+      </View>
+
