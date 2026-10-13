@@ -85,3 +85,24 @@ function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void
     });
   };
 
+  const minor = Math.round(parseFloat(amount || '0') * 100);
+  const canSave = minor > 0;
+
+  const save = () => {
+    if (!canSave) return;
+    const input = {
+      amount_minor: minor,
+      currency: shown.kind === 'edit' ? shown.expense.currency : currency,
+      category_id: categoryId ?? categories.find((x) => x.name === 'Other')?.id ?? null,
+      note: note.trim(),
+      date,
+      source: shown.kind === 'new' ? ('manual' as const) : shown.kind === 'capture' ? ('voice' as const) : shown.expense.source,
+      capture_id: shown.kind === 'capture' ? shown.capture.id : undefined,
+    };
+    if (shown.kind === 'edit') editExpense(shown.expense.id, input);
+    else addExpense(input);
+    if (shown.kind === 'capture') dismissCapture(shown.capture.id);
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    onClose();
+  };
+
