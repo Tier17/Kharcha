@@ -126,3 +126,12 @@ export default function Categories() {
   const [shown, setShown] = useState<{ draft: Draft; n: number } | null>(null);
   if (draft && draft !== shown?.draft) setShown({ draft, n: (shown?.n ?? 0) + 1 });
 
+  const full = categories.length >= MAX_CATEGORIES;
+  const edit = (cat: Category) =>
+    setDraft({ id: cat.id, name: cat.name, color: cat.color, icon: glyphFor(cat.name, cat.icon) });
+  const add = () => {
+    const used = new Set(categories.map((x) => x.color));
+    const color = categoryColors.find((x) => !used.has(x)) ?? categoryColors[0];
+    setDraft({ id: null, name: '', color, icon: 'other' });
+  };
+
