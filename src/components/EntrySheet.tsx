@@ -254,3 +254,62 @@ function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void
   );
 }
 
+const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: space.xl,
+    paddingTop: space.xs,
+    minHeight: 32,
+  },
+  dateStepper: { flexDirection: 'row', alignItems: 'center', gap: space.xs, marginLeft: -6 },
+  stepBtn: { padding: 4 },
+  amountRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    gap: 6,
+    paddingTop: space.lg,
+    paddingBottom: space.lg,
+  },
+  currency: { ...moneyType.code, marginTop: 14 },
+  voice: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: space.md,
+    padding: 10,
+    paddingRight: space.lg,
+    borderRadius: radius.pill,
+  },
+  play: { width: 30, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center', paddingLeft: 2 },
+  note: {
+    marginHorizontal: space.xl,
+    marginTop: space.md,
+    paddingVertical: 12,
+    fontFamily: font.regular,
+    fontSize: 16,
+    textAlign: 'center',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  chips: { gap: space.sm, paddingHorizontal: space.xl, paddingVertical: space.lg },
+  chip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    paddingHorizontal: 14,
+    height: 36,
+    borderRadius: radius.pill,
+  },
+  pad: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: space.lg },
+  key: { width: '33.333%', height: 58, alignItems: 'center', justifyContent: 'center', borderRadius: radius.md },
+  keyText: { fontFamily: font.regular, fontSize: 26, fontVariant: ['tabular-nums'] },
+  save: {
+    marginHorizontal: space.xl,
+    marginTop: space.md,
+    height: 56,
+    borderRadius: radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
