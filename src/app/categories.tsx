@@ -180,3 +180,39 @@ export default function Categories() {
   );
 }
 
+const styles = StyleSheet.create({
+  screen: { flex: 1 },
+  nav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: space.xl,
+    paddingVertical: space.lg,
+  },
+  card: { marginHorizontal: space.lg, borderRadius: 22, paddingHorizontal: space.lg },
+  row: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: 12 },
+  footer: { marginHorizontal: space.xl, marginTop: space.md, lineHeight: 17 },
+  editorHead: { alignItems: 'center', gap: space.md, paddingHorizontal: space.xl, paddingTop: space.md },
+  nameInput: {
+    alignSelf: 'stretch',
+    textAlign: 'center',
+    fontFamily: font.medium,
+    fontSize: 20,
+    paddingVertical: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  editorLabel: { letterSpacing: 1.4, marginTop: space.xl, marginBottom: space.sm, paddingHorizontal: space.xl },
+  swatches: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, paddingHorizontal: space.xl },
+  swatch: { width: 32, height: 32, borderRadius: 16, borderWidth: 2 },
+  icons: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, paddingHorizontal: space.xl },
+  iconCell: { width: 44, height: 44, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
+  editorActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: space.lg,
+    paddingHorizontal: space.xl,
+    marginTop: space.xl,
+  },
+  deleteBtn: { paddingVertical: 14 },
+  saveBtn: { flex: 1, height: 52, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center' },
+});
