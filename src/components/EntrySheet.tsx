@@ -57,3 +57,12 @@ export function EntrySheet({ target, onClose }: { target: EntryTarget | null; on
   );
 }
 
+function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void }) {
+  const c = useColors();
+  const categories = useStore((s) => s.categories);
+  const currency = useStore((s) => s.currency);
+  const addExpense = useStore((s) => s.addExpense);
+  const editExpense = useStore((s) => s.editExpense);
+  const deleteExpense = useStore((s) => s.deleteExpense);
+  const hasApiKey = useStore((s) => s.hasApiKey);
+
