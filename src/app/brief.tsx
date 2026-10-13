@@ -132,3 +132,39 @@ export default function Brief() {
           </View>
         </HeroCard>
 
+        {data.byCategory.length === 0 ? (
+          <View style={styles.empty}>
+            <Mascot size={96} resting />
+            <Text variant="bodyMedium" style={{ marginTop: space.md }}>
+              Nothing recorded this month.
+            </Text>
+          </View>
+        ) : (
+          <Section title="Where it went">
+            <Card style={styles.cardPad}>
+            {data.byCategory.map((row, i) => {
+              const cat = categoryById(categories, row.category_id);
+              const pct = data.total ? Math.round((row.total / data.total) * 100) : 0;
+              return (
+                <View key={row.category_id ?? 'none'} style={styles.catRow}>
+                  <CategoryGlyph name={cat?.name} icon={cat?.icon} color={cat?.color ?? c.textTertiary} size={38} />
+                  <View style={{ flex: 1, gap: 8 }}>
+                    <View style={styles.catTop}>
+                      <Text variant="bodyMedium">{cat?.name ?? 'Uncategorised'}</Text>
+                      <Text variant="bodyMedium" tabular>
+                        {formatMinor(row.total)}
+                        <Text variant="caption" tone="tertiary">
+                          {'  '}
+                          {pct}%
+                        </Text>
+                      </Text>
+                    </View>
+                    <Bar ratio={row.total / max} color={cat?.color ?? c.textTertiary} index={i} />
+                  </View>
+                </View>
+              );
+            })}
+            </Card>
+          </Section>
+        )}
+
