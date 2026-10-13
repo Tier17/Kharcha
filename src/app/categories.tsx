@@ -13,3 +13,14 @@ import type { Category } from '@/lib/db/repo';
 import { useStore } from '@/store';
 import { MAX_CATEGORIES, categoryColors, font, radius, space, useColors } from '@/theme';
 
+type Draft = { id: string | null; name: string; color: string; icon: string };
+
+function Editor({ draft, onClose }: { draft: Draft; onClose: () => void }) {
+  const c = useColors();
+  const categories = useStore((s) => s.categories);
+  const refresh = useStore((s) => s.refresh);
+  const showToast = useStore((s) => s.showToast);
+  const [name, setName] = useState(draft.name);
+  const [color, setColor] = useState(draft.color);
+  const [icon, setIcon] = useState(draft.icon);
+
