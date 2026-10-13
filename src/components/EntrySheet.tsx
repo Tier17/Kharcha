@@ -165,3 +165,21 @@ function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void
         </Text>
       </View>
 
+      {shown.kind === 'capture' && (
+        <View style={{ paddingHorizontal: space.xl, gap: space.sm }}>
+          <VoicePlayback capture={shown.capture} />
+          {shown.capture.status === 'failed' && hasApiKey && (
+            <Pressable
+              onPress={() => {
+                retryCapture(shown.capture.id);
+                onClose();
+              }}
+            >
+              <Text variant="label" tone="accent" style={{ textAlign: 'center', paddingVertical: 4 }}>
+                Try AI again
+              </Text>
+            </Pressable>
+          )}
+        </View>
+      )}
+
