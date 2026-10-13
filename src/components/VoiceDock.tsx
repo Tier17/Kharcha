@@ -215,3 +215,48 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
   );
 }
 
+const styles = StyleSheet.create({
+  dock: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    paddingTop: space.md,
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  side: { alignItems: 'center', gap: 5, width: 72 },
+  sideIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: StyleSheet.hairlineWidth,
+  },
+  micSlot: { width: MIC + 16, height: MIC + 16, alignItems: 'center', justifyContent: 'center' },
+  micRing: { position: 'absolute', width: MIC + 14, height: MIC + 14, borderRadius: (MIC + 14) / 2, borderWidth: 1 },
+  mic: {
+    width: MIC,
+    height: MIC,
+    borderRadius: MIC / 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  listen: { flex: 1, alignItems: 'center' },
+  kickerRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  liveDot: { width: 7, height: 7, borderRadius: 4 },
+  kicker: { letterSpacing: 2 },
+  orbArea: { height: ORB * 2, width: '100%', alignItems: 'center', justifyContent: 'center' },
+  ring: { position: 'absolute', width: ORB, height: ORB, borderRadius: ORB / 2, borderWidth: 1 },
+  orb: { width: ORB, height: ORB, borderRadius: ORB / 2, alignItems: 'center', justifyContent: 'center' },
+  wave: { height: 40, flexDirection: 'row', alignItems: 'center', gap: 4 },
+  timer: { fontFamily: font.medium, fontSize: 22, marginTop: space.lg, letterSpacing: 0.5 },
+  example: {
+    marginTop: space.xxl,
+    fontFamily: font.regular,
+    fontSize: 18,
+    lineHeight: 24,
+    paddingHorizontal: 12,
+    textAlign: 'center',
+  },
+  slideHint: { position: 'absolute', alignSelf: 'center' },
+});
