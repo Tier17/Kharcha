@@ -72,3 +72,16 @@ function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void
   const [categoryId, setCategoryId] = useState<string | null>(editing?.category_id ?? null);
   const [date, setDate] = useState(editing?.date ?? (shown.kind === 'new' ? shown.date : undefined) ?? isoDate());
 
+  const press = (k: string) => {
+    Haptics.selectionAsync();
+    setAmount((a) => {
+      if (k === '⌫') return a.slice(0, -1);
+      if (k === '.') return a.includes('.') ? a : (a || '0') + '.';
+      const [whole, frac] = a.split('.');
+      if (frac !== undefined && frac.length >= 2) return a;
+      if (frac === undefined && whole.length >= 7) return a;
+      if (a === '0') return k;
+      return a + k;
+    });
+  };
+
