@@ -38,3 +38,13 @@ function Editor({ draft, onClose }: { draft: Draft; onClose: () => void }) {
     onClose();
   };
 
+  const remove = () => {
+    if (!draft.id) return;
+    const other = categories.find((x) => x.name === 'Other');
+    if (!other || other.id === draft.id) return;
+    repo.archiveCategory(draft.id, other.id);
+    refresh();
+    showToast(`Deleted. Its expenses moved to Other.`);
+    onClose();
+  };
+
