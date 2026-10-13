@@ -238,3 +238,19 @@ function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void
         ))}
       </View>
 
+      <Pressable
+        onPress={save}
+        disabled={!canSave}
+        style={({ pressed }) => [
+          styles.save,
+          { backgroundColor: canSave ? c.accent : c.surface, opacity: pressed ? 0.85 : 1 },
+        ]}
+      >
+        <Text variant="bodyMedium" style={{ color: canSave ? c.onAccent : c.textTertiary }}>
+          {shown.kind === 'edit' ? 'Save changes' : 'Save'}
+        </Text>
+      </Pressable>
+    </>
+  );
+}
+
