@@ -155,3 +155,13 @@ function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void
         )}
       </View>
 
+      <View style={styles.amountRow}>
+        <Text variant="label" tone="tertiary" style={styles.currency}>
+          {shown.kind === 'edit' ? shown.expense.currency : currency}
+        </Text>
+        <Text variant="hero" tabular style={{ color: amount ? c.text : c.textTertiary }}>
+          {display}
+          {frac !== undefined && <Text variant="hero" tabular tone="tertiary">.{frac}</Text>}
+        </Text>
+      </View>
+
