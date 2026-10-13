@@ -81,3 +81,18 @@ function Editor({ draft, onClose }: { draft: Draft; onClose: () => void }) {
         ))}
       </View>
 
+      <Text variant="caption" tone="tertiary" style={styles.editorLabel}>
+        ICON
+      </Text>
+      <View style={styles.icons}>
+        {GLYPHS.map((g) => (
+          <Pressable
+            key={g}
+            onPress={() => setIcon(g)}
+            style={[styles.iconCell, { backgroundColor: icon === g ? color + '26' : c.surface }]}
+          >
+            <GlyphIcon glyph={g} color={icon === g ? color : c.textSecondary} size={20} />
+          </Pressable>
+        ))}
+      </View>
+
