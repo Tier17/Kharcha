@@ -157,3 +157,30 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
               </Animated.View>
             </View>
 
+            <View style={styles.wave}>
+              {mirrored.map((l, i) => (
+                <View
+                  key={i}
+                  style={{
+                    width: 3,
+                    height: 3 + l * 36,
+                    borderRadius: 2,
+                    backgroundColor: armedCancel ? c.textTertiary : c.text,
+                    opacity: 0.15 + l * 0.85,
+                  }}
+                />
+              ))}
+            </View>
+            <Text tabular style={[styles.timer, { color: nearLimit ? c.danger : c.text }]}>
+              {timer}
+            </Text>
+            <Text tone="tertiary" style={styles.example}>
+              “Petrol 120 aur chai 15”
+            </Text>
+          </View>
+          <Text variant="label" tone="tertiary" style={[styles.slideHint, { bottom: insets.bottom + MIC + 56 }]}>
+            {armedCancel ? 'Let go to discard' : '‹  Slide left to cancel'}
+          </Text>
+        </Animated.View>
+      )}
+
