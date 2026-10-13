@@ -58,3 +58,13 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
   };
   const { start, stop, isRecording, durationMs, levels } = useVoiceRecorder({ onLimit: () => onEnd(false) });
 
+  const press = useSharedValue(0);
+  const dragX = useSharedValue(0);
+  const amp = useSharedValue(0);
+
+  // The orb follows your voice level; smoothed so it glides rather than jitters.
+  const latest = isRecording ? levels[levels.length - 1] : 0;
+  useEffect(() => {
+    amp.set(withTiming(latest, { duration: 160, easing: Easing.out(Easing.quad) }));
+  }, [latest, amp]);
+
