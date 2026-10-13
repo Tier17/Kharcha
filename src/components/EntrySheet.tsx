@@ -106,3 +106,52 @@ function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void
     onClose();
   };
 
+  const today = isoDate();
+  const [whole, frac] = amount.split('.');
+  const display = whole ? Number(whole).toLocaleString('en-US') : '0';
+
+  return (
+    <>
+      <View style={styles.header}>
+        <View style={styles.dateStepper}>
+          <Pressable hitSlop={10} onPress={() => setDate((d) => addDays(d, -1))} style={styles.stepBtn}>
+            <Icon name="back" color={c.textSecondary} size={18} />
+          </Pressable>
+          <Text variant="label" tone="secondary" style={{ minWidth: 92, textAlign: 'center' }}>
+            {dayLabel(date)}
+          </Text>
+          <Pressable
+            hitSlop={10}
+            disabled={date >= today}
+            onPress={() => setDate((d) => addDays(d, 1))}
+            style={[styles.stepBtn, { transform: [{ scaleX: -1 }], opacity: date >= today ? 0.25 : 1 }]}
+          >
+            <Icon name="back" color={c.textSecondary} size={18} />
+          </Pressable>
+        </View>
+        {shown.kind === 'edit' && (
+          <Pressable
+            hitSlop={12}
+            onPress={() => {
+              deleteExpense(shown.expense.id);
+              onClose();
+            }}
+          >
+            <Icon name="delete" color={c.textSecondary} size={20} />
+          </Pressable>
+        )}
+        {shown.kind === 'capture' && (
+          <Pressable
+            hitSlop={12}
+            onPress={() => {
+              dismissCapture(shown.capture.id);
+              onClose();
+            }}
+          >
+            <Text variant="label" tone="secondary">
+              Discard
+            </Text>
+          </Pressable>
+        )}
+      </View>
+
