@@ -55,3 +55,23 @@ export default function Brief() {
   const version = useStore((s) => s.expenses);
   const [offset, setOffset] = useState(0);
 
+  const data = useMemo(() => {
+    void version;
+    const m = monthBounds(offset);
+    const prev = monthBounds(offset - 1);
+    const total = repo.sumBetween(currency, m.from, m.to);
+    const prevTotal = repo.sumBetween(currency, prev.from, prev.to);
+    const today = new Date();
+    const daysCounted = offset === 0 ? today.getDate() : m.end.getDate();
+    return {
+      label: m.start.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+      total,
+      prevTotal,
+      perDay: Math.round(total / daysCounted / 100) * 100,
+      byCategory: repo.categoryTotals(currency, m.from, m.to),
+      merchants: repo.topMerchants(currency, m.from, m.to),
+      biggest: repo.biggestExpenses(currency, m.from, m.to),
+      count: repo.categoryTotals(currency, m.from, m.to).reduce((n, r) => n + r.count, 0),
+    };
+  }, [offset, version, currency]);
+
