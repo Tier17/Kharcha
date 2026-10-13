@@ -45,3 +45,15 @@ function VoicePlayback({ capture }: { capture: Capture }) {
   );
 }
 
+export function EntrySheet({ target, onClose }: { target: EntryTarget | null; onClose: () => void }) {
+  // Keep rendering the last target while the sheet animates out; a new target remounts the form.
+  const [shown, setShown] = useState<{ target: EntryTarget; n: number } | null>(null);
+  if (target && target !== shown?.target) setShown({ target, n: (shown?.n ?? 0) + 1 });
+
+  return (
+    <Sheet visible={!!target} onClose={onClose}>
+      {shown && <EntryForm key={shown.n} shown={shown.target} onClose={onClose} />}
+    </Sheet>
+  );
+}
+
