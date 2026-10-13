@@ -168,3 +168,26 @@ export default function Brief() {
           </Section>
         )}
 
+        {data.merchants.length > 0 && (
+          <Section title="Top places">
+            <Card style={styles.cardList}>
+              {data.merchants.map((m, i) => (
+                <View
+                  key={m.merchant}
+                  style={[styles.listRow, i > 0 && { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.separator }]}
+                >
+                  <Text variant="bodyMedium" style={{ flex: 1 }}>
+                    {m.merchant}
+                  </Text>
+                  <Text variant="caption" tone="tertiary">
+                    {m.count}×{'   '}
+                  </Text>
+                  <Text variant="bodyMedium" tabular>
+                    {formatMinor(m.total)}
+                  </Text>
+                </View>
+              ))}
+            </Card>
+          </Section>
+        )}
+
