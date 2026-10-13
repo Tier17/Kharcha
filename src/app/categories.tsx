@@ -24,3 +24,17 @@ function Editor({ draft, onClose }: { draft: Draft; onClose: () => void }) {
   const [color, setColor] = useState(draft.color);
   const [icon, setIcon] = useState(draft.icon);
 
+  const trimmed = name.trim();
+  const duplicate = categories.some((x) => x.id !== draft.id && x.name.toLowerCase() === trimmed.toLowerCase());
+  const isOther = categories.find((x) => x.id === draft.id)?.name === 'Other';
+  const canSave = trimmed.length > 0 && trimmed.length <= 20 && !duplicate;
+
+  const save = () => {
+    if (!canSave) return;
+    if (draft.id) repo.updateCategory(draft.id, { name: trimmed, color, icon });
+    else repo.addCategory(trimmed, color, icon);
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    refresh();
+    onClose();
+  };
+
