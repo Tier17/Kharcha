@@ -118,3 +118,11 @@ function Editor({ draft, onClose }: { draft: Draft; onClose: () => void }) {
   );
 }
 
+export default function Categories() {
+  const c = useColors();
+  const insets = useSafeAreaInsets();
+  const categories = useStore((s) => s.categories);
+  const [draft, setDraft] = useState<Draft | null>(null);
+  const [shown, setShown] = useState<{ draft: Draft; n: number } | null>(null);
+  if (draft && draft !== shown?.draft) setShown({ draft, n: (shown?.n ?? 0) + 1 });
+
