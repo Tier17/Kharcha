@@ -184,3 +184,13 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
         </Animated.View>
       )}
 
+      <View
+        style={[
+          styles.dock,
+          { backgroundColor: c.bg, borderTopColor: c.separator, paddingBottom: insets.bottom + space.md, zIndex: 6 },
+        ]}
+      >
+        <Animated.View style={sidesStyle}>
+          <SideButton icon="camera" label="Receipt" onPress={onCamera} />
+        </Animated.View>
+
