@@ -14,3 +14,10 @@ import { dismissCapture, retryCapture } from '@/lib/queue';
 import { useStore } from '@/store';
 import { font, moneyType, radius, space, useColors } from '@/theme';
 
+export type EntryTarget =
+  | { kind: 'new'; date?: string }
+  | { kind: 'edit'; expense: Expense }
+  | { kind: 'capture'; capture: Capture };
+
+const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '⌫'];
+
