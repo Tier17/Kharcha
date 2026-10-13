@@ -191,3 +191,31 @@ export default function Brief() {
           </Section>
         )}
 
+        {data.biggest.length > 0 && (
+          <Section title="Biggest">
+            <Card style={styles.cardList}>
+              {data.biggest.map((e, i) => {
+                const cat = categoryById(categories, e.category_id);
+                return (
+                  <View
+                    key={e.id}
+                    style={[styles.listRow, i > 0 && { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.separator }]}
+                  >
+                    <CategoryGlyph name={cat?.name} icon={cat?.icon} color={cat?.color ?? c.textTertiary} size={30} />
+                    <Text variant="bodyMedium" numberOfLines={1} style={{ flex: 1 }}>
+                      {e.note || cat?.name || 'Expense'}
+                    </Text>
+                    <Text variant="bodyMedium" tabular>
+                      {formatMinor(e.amount_minor)}
+                    </Text>
+                  </View>
+                );
+              })}
+            </Card>
+          </Section>
+        )}
+      </ScrollView>
+    </View>
+  );
+}
+
