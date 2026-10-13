@@ -146,3 +146,14 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
               </Text>
             </View>
 
+            <View style={styles.orbArea}>
+              <Animated.View style={[styles.ring, { borderColor: c.accent }, ring3]} />
+              <Animated.View style={[styles.ring, { borderColor: c.accent }, ring2]} />
+              <Animated.View style={[styles.ring, { borderColor: c.accent }, ring1]} />
+              <Animated.View
+                style={[styles.orb, { backgroundColor: armedCancel ? c.textTertiary : c.accent }, orbStyle]}
+              >
+                <Icon name="micFilled" color={c.onAccent} size={46} strokeWidth={1.8} />
+              </Animated.View>
+            </View>
+
