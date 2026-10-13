@@ -96,3 +96,29 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
       scheduleOnRN(onEnd, cancel);
     });
 
+  const micStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: dragX.value * 0.5 }, { scale: interpolate(press.value, [0, 1], [1, 0.94]) }],
+  }));
+  const sidesStyle = useAnimatedStyle(() => ({ opacity: 1 - press.value }));
+
+  // Flat listening view: a solid disc plus hairline rings that open up as you speak.
+  const orbStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: dragX.value * 0.25 }, { scale: 1 + amp.value * 0.06 }],
+  }));
+  const ring1 = useAnimatedStyle(() => ({
+    opacity: 0.25 + amp.value * 0.5,
+    transform: [{ scale: 1.22 + amp.value * 0.18 }],
+  }));
+  const ring2 = useAnimatedStyle(() => ({
+    opacity: 0.12 + amp.value * 0.35,
+    transform: [{ scale: 1.5 + amp.value * 0.35 }],
+  }));
+  const ring3 = useAnimatedStyle(() => ({
+    opacity: 0.05 + amp.value * 0.2,
+    transform: [{ scale: 1.8 + amp.value * 0.5 }],
+  }));
+  const micRing = useAnimatedStyle(() => ({
+    opacity: 1 - press.value,
+    transform: [{ translateX: dragX.value * 0.5 }],
+  }));
+
