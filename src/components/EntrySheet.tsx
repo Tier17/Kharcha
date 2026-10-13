@@ -21,3 +21,27 @@ export type EntryTarget =
 
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '⌫'];
 
+function VoicePlayback({ capture }: { capture: Capture }) {
+  const c = useColors();
+  const player = useAudioPlayer(audioFile(capture.file_name).uri);
+  const status = useAudioPlayerStatus(player);
+  const toggle = () => {
+    if (status.playing) player.pause();
+    else {
+      if (status.didJustFinish || status.currentTime >= status.duration - 0.05) player.seekTo(0);
+      player.play();
+    }
+  };
+  const secs = Math.max(1, Math.round((capture.duration_ms ?? 0) / 1000));
+  return (
+    <Pressable onPress={toggle} style={[styles.voice, { backgroundColor: c.surface }]}>
+      <View style={[styles.play, { backgroundColor: c.accent }]}>
+        <Icon name={status.playing ? 'pause' : 'play'} color={c.onAccent} size={14} />
+      </View>
+      <Text variant="label" tone="secondary" numberOfLines={1} style={{ flex: 1 }}>
+        {capture.transcript ? `“${capture.transcript}”` : `Your voice note · ${secs}s`}
+      </Text>
+    </Pressable>
+  );
+}
+
