@@ -192,3 +192,32 @@ function EntryForm({ shown, onClose }: { shown: EntryTarget; onClose: () => void
         style={[styles.note, { color: c.text, borderColor: c.separator }]}
       />
 
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.chips}
+        keyboardShouldPersistTaps="handled"
+      >
+        {categories.map((cat) => {
+          const selected = cat.id === categoryId;
+          return (
+            <Pressable
+              key={cat.id}
+              onPress={() => {
+                Haptics.selectionAsync();
+                setCategoryId(selected ? null : cat.id);
+              }}
+              style={[
+                styles.chip,
+                { backgroundColor: selected ? c.text : c.surface },
+              ]}
+            >
+              <GlyphIcon glyph={glyphFor(cat.name, cat.icon)} color={selected ? c.bg : cat.color} size={15} />
+              <Text variant="label" style={{ color: selected ? c.bg : c.text }}>
+                {cat.name}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </ScrollView>
+
