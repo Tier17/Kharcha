@@ -48,3 +48,23 @@ function Editor({ draft, onClose }: { draft: Draft; onClose: () => void }) {
     onClose();
   };
 
+  return (
+    <View>
+      <View style={styles.editorHead}>
+        <CategoryGlyph name={trimmed} icon={icon} color={color} size={56} />
+        <TextInput
+          value={name}
+          onChangeText={setName}
+          placeholder="Category name"
+          placeholderTextColor={c.textTertiary}
+          maxLength={20}
+          autoFocus={!draft.id}
+          style={[styles.nameInput, { color: c.text, borderColor: c.separator }]}
+        />
+        {duplicate && (
+          <Text variant="caption" tone="secondary">
+            You already have a category with this name.
+          </Text>
+        )}
+      </View>
+
