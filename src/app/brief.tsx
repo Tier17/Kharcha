@@ -75,3 +75,26 @@ export default function Brief() {
     };
   }, [offset, version, currency]);
 
+  const change = data.prevTotal ? (data.total - data.prevTotal) / data.prevTotal : null;
+  const max = Math.max(1, ...data.byCategory.map((r) => r.total));
+
+  return (
+    <View style={[styles.screen, { backgroundColor: c.bg, paddingTop: insets.top }]}>
+      <View style={styles.nav}>
+        <Pressable hitSlop={14} onPress={() => router.back()} style={{ marginLeft: -6 }}>
+          <Icon name="back" color={c.text} size={24} />
+        </Pressable>
+        <View style={styles.monthSwitch}>
+          <Pressable hitSlop={12} onPress={() => setOffset((o) => o - 1)}>
+            <Icon name="back" color={c.textSecondary} size={18} />
+          </Pressable>
+          <Text variant="bodyMedium" style={{ minWidth: 140, textAlign: 'center' }}>
+            {data.label}
+          </Text>
+          <Pressable hitSlop={12} disabled={offset >= 0} onPress={() => setOffset((o) => o + 1)} style={{ opacity: offset >= 0 ? 0.25 : 1 }}>
+            <Icon name="forward" color={c.textSecondary} size={18} />
+          </Pressable>
+        </View>
+        <View style={{ width: 24 }} />
+      </View>
+
