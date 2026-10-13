@@ -194,3 +194,16 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
           <SideButton icon="camera" label="Receipt" onPress={onCamera} />
         </Animated.View>
 
+        <View style={styles.micSlot}>
+          <Animated.View pointerEvents="none" style={[styles.micRing, { borderColor: c.accentSoft, borderWidth: 6 }, micRing]} />
+          <GestureDetector gesture={gesture}>
+            <Animated.View
+              accessibilityRole="button"
+              accessibilityLabel="Hold to record an expense"
+              style={[styles.mic, { backgroundColor: c.accent }, micStyle]}
+            >
+              <Icon name="micFilled" color={c.onAccent} size={30} strokeWidth={1.9} />
+            </Animated.View>
+          </GestureDetector>
+        </View>
+
