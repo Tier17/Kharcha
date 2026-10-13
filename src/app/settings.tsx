@@ -16,3 +16,35 @@ import { estimateUsd, getUsage } from '@/lib/usage';
 import { useStore, type ThemePref } from '@/store';
 import { font, radius, space, useColors } from '@/theme';
 
+function Group({
+  title,
+  icon,
+  children,
+  footer,
+}: {
+  title: string;
+  icon: IconName;
+  children: React.ReactNode;
+  footer?: string;
+}) {
+  const c = useColors();
+  return (
+    <View style={styles.group}>
+      <View style={styles.groupHead}>
+        <View style={[styles.groupIcon, { backgroundColor: c.accentSoft }]}>
+          <Icon name={icon} color={c.accent} size={14} strokeWidth={2} />
+        </View>
+        <Text variant="bodyMedium" style={styles.groupTitle}>
+          {title}
+        </Text>
+      </View>
+      <View style={[styles.card, { backgroundColor: c.surfaceRaised }]}>{children}</View>
+      {footer && (
+        <Text variant="caption" tone="tertiary" style={styles.footer}>
+          {footer}
+        </Text>
+      )}
+    </View>
+  );
+}
+
