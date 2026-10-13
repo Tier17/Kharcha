@@ -75,3 +75,24 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
   };
   const onArm = (armed: boolean) => setArmedCancel(armed);
 
+  const gesture = Gesture.Pan()
+    .minDistance(0)
+    .shouldCancelWhenOutside(false)
+    .onBegin(() => {
+      press.set(withSpring(1, spring));
+      scheduleOnRN(onBegin);
+    })
+    .onUpdate((e) => {
+      const x = Math.min(0, e.translationX);
+      const wasArmed = dragX.value < -CANCEL_DISTANCE;
+      dragX.set(x);
+      const armed = x < -CANCEL_DISTANCE;
+      if (armed !== wasArmed) scheduleOnRN(onArm, armed);
+    })
+    .onFinalize(() => {
+      const cancel = dragX.value < -CANCEL_DISTANCE;
+      press.set(withSpring(0, spring));
+      dragX.set(withSpring(0, spring));
+      scheduleOnRN(onEnd, cancel);
+    });
+
