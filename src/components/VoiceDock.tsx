@@ -207,3 +207,11 @@ export function VoiceDock({ onManual, onCamera }: { onManual: () => void; onCame
           </GestureDetector>
         </View>
 
+        <Animated.View style={sidesStyle}>
+          <SideButton icon="pencil" label="Type" onPress={onManual} />
+        </Animated.View>
+      </View>
+    </>
+  );
+}
+
