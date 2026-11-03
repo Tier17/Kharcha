@@ -48,3 +48,14 @@ function Group({
   );
 }
 
+export default function Settings() {
+  const c = useColors();
+  const insets = useSafeAreaInsets();
+  const themePref = useStore((s) => s.themePref);
+  const setThemePref = useStore((s) => s.setThemePref);
+  const setHasApiKey = useStore((s) => s.setHasApiKey);
+  const categories = useStore((s) => s.categories);
+  const currency = useStore((s) => s.currency);
+  const setCurrency = useStore((s) => s.setCurrency);
+  const [pickingCurrency, setPickingCurrency] = useState(false);
+
