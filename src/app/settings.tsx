@@ -78,3 +78,18 @@ export default function Settings() {
     if (k) processQueue();
   };
 
+  const [usage] = useState(getUsage);
+  const notes = Math.max(usage.parses + usage.instant, 0);
+
+  const masked = savedKey ? `${savedKey.slice(0, 7)}••••${savedKey.slice(-4)}` : null;
+
+  return (
+    <View style={[styles.screen, { backgroundColor: c.bg, paddingTop: insets.top }]}>
+      <View style={styles.nav}>
+        <Pressable hitSlop={14} onPress={() => router.back()} style={{ marginLeft: -6 }}>
+          <Icon name="back" color={c.text} size={24} />
+        </Pressable>
+        <Text variant="title">Settings</Text>
+        <View style={{ width: 24 }} />
+      </View>
+
