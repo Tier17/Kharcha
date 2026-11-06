@@ -67,3 +67,14 @@ export default function Settings() {
     getApiKey().then(setSavedKey);
   }, []);
 
+  const saveKey = async () => {
+    await setApiKey(key);
+    const k = key.trim() || null;
+    setSavedKey(k);
+    setHasApiKey(!!k);
+    setKey('');
+    setEditing(false);
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    if (k) processQueue();
+  };
+
