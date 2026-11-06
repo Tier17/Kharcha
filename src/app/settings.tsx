@@ -59,3 +59,11 @@ export default function Settings() {
   const setCurrency = useStore((s) => s.setCurrency);
   const [pickingCurrency, setPickingCurrency] = useState(false);
 
+  const [key, setKey] = useState('');
+  const [savedKey, setSavedKey] = useState<string | null>(null);
+  const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    getApiKey().then(setSavedKey);
+  }, []);
+
