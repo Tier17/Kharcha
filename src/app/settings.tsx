@@ -137,3 +137,25 @@ export default function Settings() {
           )}
         </Group>
 
+        <Group title="Appearance" icon="sparkle">
+          <View style={[styles.segment, { backgroundColor: c.bg }]}>
+            {(['system', 'light', 'dark'] as ThemePref[]).map((p) => {
+              const active = themePref === p;
+              return (
+                <Pressable
+                  key={p}
+                  onPress={() => {
+                    Haptics.selectionAsync();
+                    setThemePref(p);
+                  }}
+                  style={[styles.segmentItem, active && { backgroundColor: c.surfaceRaised, boxShadow: '0 1px 4px rgba(0,0,0,0.12)' }]}
+                >
+                  <Text variant="label" tone={active ? 'primary' : 'secondary'}>
+                    {p[0].toUpperCase() + p.slice(1)}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
+        </Group>
+
