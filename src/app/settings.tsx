@@ -93,3 +93,47 @@ export default function Settings() {
         <View style={{ width: 24 }} />
       </View>
 
+      <ScrollView contentContainerStyle={{ paddingBottom: insets.bottom + space.xxxl }} keyboardShouldPersistTaps="handled">
+        <Group
+          title="Voice AI"
+          icon="mic"
+          footer={`Your key stays on this phone (encrypted). Voice notes are sent to OpenAI only to be understood. Models: ${MODELS.transcribe}, ${MODELS.parse}. Simple notes are understood on the phone for free.`}
+        >
+          {masked && !editing ? (
+            <View style={styles.rowBetween}>
+              <View>
+                <Text variant="bodyMedium">OpenAI key</Text>
+                <Text variant="caption" tone="secondary" style={{ marginTop: 2 }}>
+                  {masked}
+                </Text>
+              </View>
+              <Pressable hitSlop={10} onPress={() => setEditing(true)}>
+                <Text variant="label" tone="accent">
+                  Change
+                </Text>
+              </Pressable>
+            </View>
+          ) : (
+            <View style={styles.keyRow}>
+              <TextInput
+                value={key}
+                onChangeText={setKey}
+                placeholder="sk-…"
+                placeholderTextColor={c.textTertiary}
+                autoCapitalize="none"
+                autoCorrect={false}
+                secureTextEntry
+                style={[styles.input, { color: c.text }]}
+              />
+              <Pressable
+                onPress={saveKey}
+                style={[styles.smallBtn, { backgroundColor: key.trim() || savedKey ? c.accent : c.bg }]}
+              >
+                <Text variant="label" style={{ color: key.trim() || savedKey ? c.onAccent : c.textTertiary }}>
+                  {key.trim() ? 'Save' : savedKey ? 'Remove' : 'Save'}
+                </Text>
+              </Pressable>
+            </View>
+          )}
+        </Group>
+
