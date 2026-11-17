@@ -159,3 +159,20 @@ export default function Settings() {
           </View>
         </Group>
 
+        <Group
+          title="AI cost this month"
+          icon="chart"
+          footer="Estimate from OpenAI list prices. Silent recordings are never sent, and notes stop at 30 seconds."
+        >
+          <View style={styles.rowBetween}>
+            <View>
+              <Text variant="title" tabular>
+                {estimateUsd(usage) < 0.01 ? 'under $0.01' : `≈ $${estimateUsd(usage).toFixed(2)}`}
+              </Text>
+              <Text variant="caption" tone="secondary" style={{ marginTop: 2 }}>
+                {notes} {notes === 1 ? 'note' : 'notes'} · {usage.instant} understood on phone · {Math.round(usage.seconds)}s audio
+              </Text>
+            </View>
+          </View>
+        </Group>
+
