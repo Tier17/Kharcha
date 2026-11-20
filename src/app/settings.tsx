@@ -208,3 +208,40 @@ export default function Settings() {
         </Group>
       </ScrollView>
 
+      <Sheet visible={pickingCurrency} onClose={() => setPickingCurrency(false)}>
+        <Text variant="title" style={styles.sheetTitle}>
+          Currency
+        </Text>
+        <ScrollView style={{ maxHeight: 460 }}>
+          {CURRENCIES.map((cur) => {
+            const active = cur.code === currency;
+            return (
+              <Pressable
+                key={cur.code}
+                onPress={() => {
+                  Haptics.selectionAsync();
+                  setCurrency(cur.code);
+                  setPickingCurrency(false);
+                }}
+                style={({ pressed }) => [styles.currencyRow, pressed && { backgroundColor: c.surface }]}
+              >
+                <Text
+                  variant="bodyMedium"
+                  tabular
+                  style={[styles.currencyCode, { color: active ? c.accent : c.textSecondary }]}
+                >
+                  {cur.code}
+                </Text>
+                <Text variant="bodyMedium" style={{ flex: 1 }}>
+                  {cur.name}
+                </Text>
+                {active && <Icon name="check" color={c.accent} size={20} />}
+              </Pressable>
+            );
+          })}
+        </ScrollView>
+      </Sheet>
+    </View>
+  );
+}
+
