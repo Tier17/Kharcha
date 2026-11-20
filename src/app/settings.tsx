@@ -176,3 +176,19 @@ export default function Settings() {
           </View>
         </Group>
 
+        <Group title="Categories" icon="grid">
+          <Pressable onPress={() => router.push('/categories')} style={({ pressed }) => [styles.rowBetween, pressed && { opacity: 0.6 }]}>
+            <View style={styles.catPreview}>
+              {categories.slice(0, 5).map((cat, i) => (
+                <View key={cat.id} style={{ marginLeft: i ? -8 : 0 }}>
+                  <CategoryGlyph name={cat.name} icon={cat.icon} color={cat.color} size={30} />
+                </View>
+              ))}
+              <Text variant="bodyMedium" style={{ marginLeft: space.md }}>
+                Manage {categories.length}
+              </Text>
+            </View>
+            <Icon name="forward" color={c.textTertiary} size={16} />
+          </Pressable>
+        </Group>
+
