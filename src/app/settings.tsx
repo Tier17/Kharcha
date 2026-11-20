@@ -192,3 +192,19 @@ export default function Settings() {
           </Pressable>
         </Group>
 
+        <Group title="Currency" icon="coin" footer="Changing it relabels your existing entries; amounts are not converted.">
+          <Pressable
+            onPress={() => setPickingCurrency(true)}
+            style={({ pressed }) => [styles.rowBetween, pressed && { opacity: 0.6 }]}
+          >
+            <View>
+              <Text variant="bodyMedium">{currencyByCode(currency)?.name ?? currency}</Text>
+              <Text variant="caption" tone="secondary" style={{ marginTop: 2 }}>
+                {currency}
+              </Text>
+            </View>
+            <Icon name="forward" color={c.textTertiary} size={16} />
+          </Pressable>
+        </Group>
+      </ScrollView>
+
