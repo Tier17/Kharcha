@@ -245,3 +245,35 @@ export default function Settings() {
   );
 }
 
+const styles = StyleSheet.create({
+  screen: { flex: 1 },
+  nav: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: space.xl,
+    paddingVertical: space.lg,
+  },
+  group: { marginTop: space.xl, paddingHorizontal: space.lg },
+  groupHead: { flexDirection: 'row', alignItems: 'center', gap: space.sm, marginLeft: space.xs, marginBottom: space.sm },
+  groupIcon: { width: 24, height: 24, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
+  groupTitle: { fontSize: 15 },
+  card: { borderRadius: 22, padding: space.lg },
+  footer: { marginHorizontal: space.sm, marginTop: space.sm, lineHeight: 17 },
+  rowBetween: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  keyRow: { flexDirection: 'row', alignItems: 'center', gap: space.md },
+  input: { flex: 1, fontFamily: font.regular, fontSize: 16, paddingVertical: 6 },
+  smallBtn: { paddingHorizontal: 16, height: 36, borderRadius: radius.pill, alignItems: 'center', justifyContent: 'center' },
+  segment: { flexDirection: 'row', borderRadius: 12, padding: 3 },
+  segmentItem: { flex: 1, height: 36, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
+  sheetTitle: { paddingHorizontal: space.xl, paddingTop: space.sm, paddingBottom: space.md },
+  currencyRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: space.lg,
+    paddingHorizontal: space.xl,
+    paddingVertical: 14,
+  },
+  currencyCode: { width: 44 },
+  catPreview: { flexDirection: 'row', alignItems: 'center' },
+});
